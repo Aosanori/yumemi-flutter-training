@@ -42,6 +42,20 @@ class MainApp extends StatelessWidget {
         ],
       );
 
+  Widget actionButton(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 16),
+            child: const TextButton(onPressed: null, child: Text('ccc')),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 16),
+            child: const TextButton(onPressed: null, child: Text('ddd')),
+          ),
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,7 +75,14 @@ class MainApp extends StatelessWidget {
                   ),
                   weatherInformation(context),
                   Expanded(
-                    child: Container()
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 80,
+                        ),
+                        actionButton(context),
+                      ],
+                    ),
                   ),
                 ],
               ),
