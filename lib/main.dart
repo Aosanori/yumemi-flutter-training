@@ -33,9 +33,7 @@ class WeatherApp extends StatelessWidget {
             widthFactor: 0.5,
             child: Column(
               children: [
-                const Expanded(
-                  child: SizedBox(),
-                ),
+                const Spacer(),
                 const WeatherInformation(),
                 Expanded(
                   child: Column(
