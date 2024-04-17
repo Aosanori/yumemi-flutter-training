@@ -47,11 +47,11 @@ class WeatherApp extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 16),
-            child: const TextButton(onPressed: null, child: Text('close')),
+            child: TextButton(onPressed: () {}, child: Text('close',)),
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 16),
-            child: const TextButton(onPressed: null, child: Text('reload')),
+            child: TextButton(onPressed: () {}, child: Text('reload')),
           ),
         ],
       );
