@@ -1,34 +1,24 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 // 画面下部のボタンを共通化したコンポーネント
 class ActionButton extends StatelessWidget {
   const ActionButton({
-    required this.buttonTitle,
-    required this.onPressed,
+    required String buttonTitle,
+    required void Function()? onPressed,
     super.key,
-  });
+  }) : _onPressed = onPressed, _buttonTitle = buttonTitle;
 
-  final String buttonTitle;
-  final void Function()? onPressed;
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('buttonTitle', buttonTitle));
-    properties
-        .add(ObjectFlagProperty<void Function()?>.has('onPressed', onPressed));
-  }
+  final String _buttonTitle;
+  final void Function()? _onPressed;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: _onPressed,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Text(
-          buttonTitle,
+          _buttonTitle,
         ),
       ),
     );
