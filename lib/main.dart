@@ -20,7 +20,7 @@ class WeatherApp extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  'aaa',
+                  '** ℃',
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
@@ -30,7 +30,7 @@ class WeatherApp extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  'bbb',
+                  '** ℃',
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
@@ -47,11 +47,11 @@ class WeatherApp extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 16),
-            child: const TextButton(onPressed: null, child: Text('ccc')),
+            child: const TextButton(onPressed: null, child: Text('close')),
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 16),
-            child: const TextButton(onPressed: null, child: Text('ddd')),
+            child: const TextButton(onPressed: null, child: Text('reload')),
           ),
         ],
       );
