@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+// 画面下部のボタンを共通化したコンポーネント
 class ActionButton extends StatelessWidget {
   const ActionButton({
     required this.buttonTitle,

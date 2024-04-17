@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// 中央の天気予報と気温を表示するコンポーネント
 class WeatherInformation extends StatelessWidget {
   const WeatherInformation({super.key});
 

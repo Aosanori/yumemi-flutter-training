@@ -27,6 +27,7 @@ class WeatherApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
+        // 横に 1:2:1になるようなレイアウトを作る
         body: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -35,6 +36,7 @@ class WeatherApp extends StatelessWidget {
             ),
             Flexible(
               flex: 2,
+              // Expandedで挟むことで WeatherInformationを中央に固定
               child: Column(
                 children: [
                   const Expanded(
@@ -43,6 +45,8 @@ class WeatherApp extends StatelessWidget {
                   const WeatherInformation(),
                   Expanded(
                     child: Column(
+                      // SizedBoxを用いて
+                      // WeatherInformationとActionButtonの隙間を作る
                       children: [
                         const SizedBox(
                           height: 80,
