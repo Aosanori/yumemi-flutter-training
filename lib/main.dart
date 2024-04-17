@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const WeatherApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class WeatherApp extends StatelessWidget {
+  const WeatherApp({super.key});
 
   Widget weatherInformation(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
