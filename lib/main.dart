@@ -27,53 +27,43 @@ class WeatherApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
-        // 横に 1:2:1になるようなレイアウトを作る
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Flexible(
-              child: SizedBox(),
-            ),
-            Flexible(
-              flex: 2,
-              // Expandedで挟むことで WeatherInformationを中央に固定
-              child: Column(
-                children: [
-                  const Expanded(
-                    child: SizedBox(),
+        // 真ん中で2:1の領域を作る
+        body: Center(
+          child: FractionallySizedBox(
+            widthFactor: 0.5,
+            child: Column(
+              children: [
+                const Expanded(
+                  child: SizedBox(),
+                ),
+                const WeatherInformation(),
+                Expanded(
+                  child: Column(
+                    // SizedBoxを用いて
+                    // WeatherInformationとActionButtonの隙間を作る
+                    children: [
+                      const SizedBox(
+                        height: 80,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ActionButton(
+                            buttonTitle: 'close',
+                            onPressed: () {},
+                          ),
+                          ActionButton(
+                            buttonTitle: 'reload',
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const WeatherInformation(),
-                  Expanded(
-                    child: Column(
-                      // SizedBoxを用いて
-                      // WeatherInformationとActionButtonの隙間を作る
-                      children: [
-                        const SizedBox(
-                          height: 80,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ActionButton(
-                              buttonTitle: 'close',
-                              onPressed: () {},
-                            ),
-                            ActionButton(
-                              buttonTitle: 'reload',
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const Flexible(
-              child: SizedBox(),
-            ),
-          ],
+          ),
         ),
       ),
     );
