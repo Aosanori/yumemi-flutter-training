@@ -6,6 +6,7 @@ class WeatherInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final labelLarge = Theme.of(context).textTheme.labelLarge!;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -20,20 +21,14 @@ class WeatherInformation extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
                 '** ℃',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(color: Colors.blue),
+                style: labelLarge.copyWith(color: Colors.blue),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
                 '** ℃',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(color: Colors.red),
+                style: labelLarge.copyWith(color: Colors.red),
               ),
             ),
           ],
