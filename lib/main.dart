@@ -47,11 +47,16 @@ class WeatherApp extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 16),
-            child: TextButton(onPressed: () {}, child: Text('close',)),
+            child: TextButton(
+              onPressed: () {},
+              child: const Text(
+                'close',
+              ),
+            ),
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 16),
-            child: TextButton(onPressed: () {}, child: Text('reload')),
+            child: TextButton(onPressed: () {}, child: const Text('reload')),
           ),
         ],
       );
@@ -59,6 +64,20 @@ class WeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+        ),
+        brightness: Brightness.light,
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
       home: Scaffold(
         body: Row(
           mainAxisAlignment: MainAxisAlignment.center,
