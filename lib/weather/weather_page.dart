@@ -11,22 +11,27 @@ class WeatherPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weatherNotifier = ref.read(weatherPageViewModelProvider.notifier);
-    return Scaffold(
-      // 横に 1:2:1になるようなレイアウトを作る
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Flexible(
-            child: SizedBox(),
-          ),
-          Flexible(
-            flex: 2,
-            // Expandedで挟むことで WeatherInformationを中央に固定
+    return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+        ),
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+          brightness: Brightness.dark,
+        ),
+      ),
+      home: Scaffold(
+        // 真ん中で2:1の領域を作る
+        body: Center(
+          child: FractionallySizedBox(
+            widthFactor: 0.5,
             child: Column(
               children: [
-                const Expanded(
-                  child: SizedBox(),
-                ),
+                const Spacer(),
                 const WeatherInformation(),
                 Expanded(
                   child: Column(
@@ -55,10 +60,7 @@ class WeatherPage extends ConsumerWidget {
               ],
             ),
           ),
-          const Flexible(
-            child: SizedBox(),
-          ),
-        ],
+        ),
       ),
     );
   }
