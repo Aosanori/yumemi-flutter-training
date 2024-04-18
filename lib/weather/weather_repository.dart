@@ -2,9 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/weather/weather.dart';
 import 'package:flutter_training/weather/weather_data_source.dart';
 
-final weatherRepositoryProvider = Provider(
+final weatherRepositoryProvider = Provider.autoDispose(
   (ref) => WeatherRepository(
-    ref.read(weatherDataSourceProvider),
+    ref.watch(weatherDataSourceProvider),
   ),
 );
 
