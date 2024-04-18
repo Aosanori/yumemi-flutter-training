@@ -1,5 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-final yumemiWeatherServiceProvider =
-    Provider.autoDispose((ref) => YumemiWeather());
+part 'yumemi_weather_service.g.dart';
+
+@riverpod
+YumemiWeather yumemiWeatherService(YumemiWeatherServiceRef ref) {
+  return YumemiWeather();
+}
