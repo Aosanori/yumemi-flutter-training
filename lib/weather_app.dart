@@ -13,14 +13,12 @@ class WeatherApp extends StatelessWidget {
           seedColor: Colors.blue,
         ),
         brightness: Brightness.light,
-        useMaterial3: true,
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
           brightness: Brightness.dark,
         ),
-        useMaterial3: true,
       ),
       home: Scaffold(
         // 真ん中で2:1の領域を作る
