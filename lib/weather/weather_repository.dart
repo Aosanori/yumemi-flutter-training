@@ -1,13 +1,15 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/utils/enum_by_name_or_null.dart';
 import 'package:flutter_training/weather/weather.dart';
 import 'package:flutter_training/weather/weather_data_source.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final weatherRepositoryProvider = Provider.autoDispose(
-  (ref) => WeatherRepository(
-    ref.watch(weatherDataSourceProvider),
-  ),
-);
+part 'weather_repository.g.dart';
+
+@riverpod
+WeatherRepository weatherRepository(WeatherRepositoryRef ref) {
+  final service = ref.watch(weatherDataSourceProvider);
+  return WeatherRepository(service);
+}
 
 class WeatherRepository {
   WeatherRepository(this._weatherDataSource);
