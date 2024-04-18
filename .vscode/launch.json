@@ -1,0 +1,22 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "yumemi-flutter-training",
+			"request": "launch",
+			"type": "dart"
+		},
+		{
+			"name": "yumemi-flutter-training (profile mode)",
+			"request": "launch",
+			"type": "dart",
+			"flutterMode": "profile"
+		},
+		{
+			"name": "yumemi-flutter-training (release mode)",
+			"request": "launch",
+			"type": "dart",
+			"flutterMode": "release"
+		}
+	]
+}
