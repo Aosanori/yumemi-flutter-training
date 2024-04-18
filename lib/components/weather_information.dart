@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_training/utils/assets.gen.dart';
 import 'package:flutter_training/weather/weather.dart';
 import 'package:flutter_training/weather/weather_page_view_model.dart';
 
@@ -11,11 +11,11 @@ class WeatherInformation extends ConsumerWidget {
   Widget weatherImg(Weather weather) {
     switch (weather) {
       case Weather.sunny:
-        return SvgPicture.asset('assets/sunny.svg');
+        return Assets.sunny.svg();
       case Weather.cloudy:
-        return SvgPicture.asset('assets/cloudy.svg');
+        return Assets.cloudy.svg();
       case Weather.rainy:
-        return SvgPicture.asset('assets/rainy.svg');
+        return Assets.rainy.svg();
     }
   }
 
