@@ -1,22 +1,17 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/weather/weather.dart';
 import 'package:flutter_training/weather/weather_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final weatherPageViewModelProvider =
-    NotifierProvider<WeatherPageViewModel, Weather?>(
-  WeatherPageViewModel.new,
-);
+part 'weather_page_view_model.g.dart';
 
-class WeatherPageViewModel extends Notifier<Weather?> {
-  late final WeatherRepository _weatherRepository;
-
+@riverpod
+class WeatherPageViewModel extends _$WeatherPageViewModel {
   @override
   Weather? build() {
-    _weatherRepository = ref.read(weatherRepositoryProvider);
     return null;
   }
 
   void fetchWeather() {
-    state = _weatherRepository.fetchWeather();
+    state = ref.read(weatherRepositoryProvider).fetchWeather();
   }
 }
