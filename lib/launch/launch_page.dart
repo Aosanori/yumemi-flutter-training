@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_training/mixins/after_build_stateful_widget_mixin.dart';
 import 'package:go_router/go_router.dart';
 
 class LaunchPage extends StatefulWidget {
@@ -10,7 +11,8 @@ class LaunchPage extends StatefulWidget {
   State<LaunchPage> createState() => LaunchPageState();
 }
 
-class LaunchPageState extends State<LaunchPage> {
+class LaunchPageState extends State<LaunchPage>
+    with AfterBuildStatefulWidgetMixin {
   @override
   void initState() {
     unawaited(
