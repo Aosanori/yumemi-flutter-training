@@ -21,7 +21,9 @@ class LaunchPageState extends State<LaunchPage> {
 
   Future<void> _repeatPushingWithWaitingTime(void _) async {
    await Future<void>.delayed(const Duration(milliseconds: 500));
-   await context.push('/weather');
+   if (mounted) {
+     await context.push('/weather');
+   }
    await _repeatPushingWithWaitingTime(_);
   }
 
