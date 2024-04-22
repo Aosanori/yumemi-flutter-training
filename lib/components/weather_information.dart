@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_training/utils/assets.gen.dart';
-import 'package:flutter_training/weather/weather.dart';
+import 'package:flutter_training/components/weather_image.dart';
 import 'package:flutter_training/weather/weather_page_view_model.dart';
 
 /// 中央の天気予報と気温を表示するコンポーネント
 class WeatherInformation extends ConsumerWidget {
   const WeatherInformation({super.key});
-
-  Widget weatherImg(Weather weather) => switch (weather) {
-        Weather.sunny => Assets.sunny.svg(),
-        Weather.cloudy => Assets.cloudy.svg(),
-        Weather.rainy => Assets.rainy.svg(),
-      };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +16,7 @@ class WeatherInformation extends ConsumerWidget {
       children: [
         AspectRatio(
           aspectRatio: 1,
-          child: weather != null ? weatherImg(weather) : const Placeholder(),
+          child: weather != null ? WeatherImage(weather) : const Placeholder(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
