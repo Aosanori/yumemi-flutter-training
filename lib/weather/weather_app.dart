@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/weather/weather_page.dart';
+import 'package:flutter_training/utils/go_router/routes.dart';
 
 class WeatherApp extends StatelessWidget {
   const WeatherApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
@@ -19,7 +19,9 @@ class WeatherApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: const WeatherPage(),
+      routerDelegate: router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/components/action_button.dart';
 import 'package:flutter_training/components/weather_information.dart';
 import 'package:flutter_training/weather/weather_page_view_model.dart';
+import 'package:go_router/go_router.dart';
 
 class WeatherPage extends ConsumerWidget {
   const WeatherPage({super.key});
@@ -32,7 +33,9 @@ class WeatherPage extends ConsumerWidget {
                       children: [
                         ActionButton(
                           buttonTitle: 'close',
-                          onPressed: () {},
+                          onPressed: () {
+                            context.pop('/');
+                          },
                         ),
                         ActionButton(
                           buttonTitle: 'reload',
