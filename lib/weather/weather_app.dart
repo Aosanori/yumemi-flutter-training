@@ -19,9 +19,6 @@ class WeatherApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      // routerDelegate: router.routerDelegate,
-      // routeInformationParser: router.routeInformationParser,
-      // routeInformationProvider: router.routeInformationProvider,
       routerConfig: router,
     );
   }
