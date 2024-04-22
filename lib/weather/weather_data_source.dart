@@ -15,6 +15,10 @@ class WeatherDataSource {
   final YumemiWeather _yumemiWeatherService;
 
   String fetchWeather() {
-    return _yumemiWeatherService.fetchSimpleWeather();
+    try {
+      return _yumemiWeatherService.fetchThrowsWeather('tokyo');
+    } on YumemiWeatherError catch (_) {
+      throw Exception('Failed to load data');
+    }
   }
 }
