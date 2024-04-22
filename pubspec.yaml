@@ -40,6 +40,3 @@ flutter_gen:
   # Optional
   integrations:
     flutter_svg: true
-    flare_flutter: true
-    rive: true
-    lottie: true
