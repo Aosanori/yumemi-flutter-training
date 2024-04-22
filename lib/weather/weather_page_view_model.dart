@@ -6,12 +6,18 @@ part 'weather_page_view_model.g.dart';
 
 @riverpod
 class WeatherPageViewModel extends _$WeatherPageViewModel {
+  
   @override
-  Weather? build() {
+  Future<Weather?> build() async {
     return null;
   }
 
   void fetchWeather() {
-    state = ref.watch(weatherRepositoryProvider).fetchWeather();
+    final weatherRepository = ref.read(weatherRepositoryProvider);
+    try {
+      state = AsyncData(weatherRepository.fetchWeather());
+    } on Exception catch (e) {
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 }

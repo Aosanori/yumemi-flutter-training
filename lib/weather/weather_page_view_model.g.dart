@@ -7,12 +7,12 @@ part of 'weather_page_view_model.dart';
 // **************************************************************************
 
 String _$weatherPageViewModelHash() =>
-    r'1cc4311e77394dfded1abf11f59178f9fc99fdfa';
+    r'62f3a9cb90a17bc30f2caa595127726823e5d520';
 
 /// See also [WeatherPageViewModel].
 @ProviderFor(WeatherPageViewModel)
 final weatherPageViewModelProvider =
-    AutoDisposeNotifierProvider<WeatherPageViewModel, Weather?>.internal(
+    AutoDisposeAsyncNotifierProvider<WeatherPageViewModel, Weather?>.internal(
   WeatherPageViewModel.new,
   name: r'weatherPageViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final weatherPageViewModelProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$WeatherPageViewModel = AutoDisposeNotifier<Weather?>;
+typedef _$WeatherPageViewModel = AutoDisposeAsyncNotifier<Weather?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
