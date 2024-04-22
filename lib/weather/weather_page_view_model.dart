@@ -12,6 +12,6 @@ class WeatherPageViewModel extends _$WeatherPageViewModel {
   }
 
   void fetchWeather() {
-    state = ref.read(weatherRepositoryProvider).fetchWeather();
+    state = ref.watch(weatherRepositoryProvider).fetchWeather();
   }
 }
