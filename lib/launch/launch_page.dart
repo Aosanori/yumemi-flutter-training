@@ -14,17 +14,19 @@ class LaunchPageState extends State<LaunchPage> {
   @override
   void initState() {
     unawaited(
-      WidgetsBinding.instance.endOfFrame.then(_repeatPushingWithWaitingTime),
+      WidgetsBinding.instance.endOfFrame.then((_) {
+        _repeatPushingWithWaitingTime();
+      }),
     );
     super.initState();
   }
 
-  Future<void> _repeatPushingWithWaitingTime(void _) async {
-   await Future<void>.delayed(const Duration(milliseconds: 500));
-   if (mounted) {
-     await context.push('/weather');
-   }
-   await _repeatPushingWithWaitingTime(_);
+  Future<void> _repeatPushingWithWaitingTime() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    if (mounted) {
+      await context.push('/weather');
+    }
+    await _repeatPushingWithWaitingTime();
   }
 
   @override
