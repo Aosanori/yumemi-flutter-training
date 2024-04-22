@@ -8,16 +8,11 @@ import 'package:flutter_training/weather/weather_page_view_model.dart';
 class WeatherInformation extends ConsumerWidget {
   const WeatherInformation({super.key});
 
-  Widget weatherImg(Weather weather) {
-    switch (weather) {
-      case Weather.sunny:
-        return Assets.sunny.svg();
-      case Weather.cloudy:
-        return Assets.cloudy.svg();
-      case Weather.rainy:
-        return Assets.rainy.svg();
-    }
-  }
+  Widget weatherImg(Weather weather) => switch (weather) {
+        Weather.sunny => Assets.sunny.svg(),
+        Weather.cloudy => Assets.cloudy.svg(),
+        Weather.rainy => Assets.rainy.svg(),
+      };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
