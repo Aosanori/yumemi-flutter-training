@@ -16,8 +16,8 @@ class WeatherInformation extends ConsumerWidget {
     ref.listen(
       weatherPageViewModelProvider,
       (previous, next) async {
-        if (next is AsyncError) {
-          await showDialog<void>(
+        await next.maybeWhen(
+          error: (error, _) async => showDialog<void>(
             context: context,
             barrierDismissible: false, // user must tap button!
             builder: (context) {
@@ -33,8 +33,9 @@ class WeatherInformation extends ConsumerWidget {
                 ],
               );
             },
-          );
-        }
+          ),
+          orElse: () {},
+        );
       },
     );
     return Column(
