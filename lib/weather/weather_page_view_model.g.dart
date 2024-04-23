@@ -7,7 +7,7 @@ part of 'weather_page_view_model.dart';
 // **************************************************************************
 
 String _$weatherPageViewModelHash() =>
-    r'62f3a9cb90a17bc30f2caa595127726823e5d520';
+    r'04e06325a9c5ad4a0adcff0947cb3ce789247a0e';
 
 /// See also [WeatherPageViewModel].
 @ProviderFor(WeatherPageViewModel)
