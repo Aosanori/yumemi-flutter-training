@@ -10,13 +10,40 @@ class WeatherInformation extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final labelLarge = Theme.of(context).textTheme.labelLarge!;
-    final weather = ref.watch(weatherPageViewModelProvider);
+    final weatherState = ref.watch(weatherPageViewModelProvider);
+    final weather = weatherState.valueOrNull;
+    /// APIのエラー時に表示するダイアログ
+    ref.listen(
+      weatherPageViewModelProvider,
+      (previous, next) async {
+        await next.maybeWhen(
+          error: (error, _) async => showDialog<void>(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (context) {
+              return AlertDialog(
+                title: Text(error.toString()),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+          orElse: () {},
+        );
+      },
+    );
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         AspectRatio(
           aspectRatio: 1,
-          child: weather != null ? WeatherImage(weather) : const Placeholder(),
+          child: weather != null ?  WeatherImage(weather) : const Placeholder(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
