@@ -18,6 +18,9 @@ class WeatherRepository {
   Weather? fetchWeather() {
     final weatherString = _weatherDataSource.fetchWeather();
     final weather = Weather.values.byNameOrNull(weatherString);
+    if (weather == null) {
+      throw Exception('invalid weather detected.');
+    }
     return weather;
   }
 }
