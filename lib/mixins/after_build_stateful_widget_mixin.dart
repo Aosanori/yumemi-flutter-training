@@ -16,5 +16,5 @@ mixin AfterBuildStatefulWidgetMixin<T extends StatefulWidget> on State<T> {
     );
   }
 
-  void afterFirstBuild() {}
+  void afterFirstBuild();
 }
