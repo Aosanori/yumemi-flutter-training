@@ -1,3 +1,4 @@
+import 'package:flutter_training/exceptions/yumemi_weather_exception.dart';
 import 'package:flutter_training/weather/yumemi_weather_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -17,8 +18,8 @@ class WeatherDataSource {
   String fetchWeather() {
     try {
       return _yumemiWeatherService.fetchThrowsWeather('tokyo');
-    } on YumemiWeatherError catch (_) {
-      throw Exception('Failed to load data');
+    } on YumemiWeatherError catch (e) {
+      throw YumemiWeatherException(e);
     }
   }
 }
