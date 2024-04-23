@@ -1,3 +1,4 @@
+import 'package:flutter_training/exceptions/yumemi_weather_repository_exception_error.dart';
 import 'package:flutter_training/utils/enum_by_name_or_null.dart';
 import 'package:flutter_training/weather/weather.dart';
 import 'package:flutter_training/weather/weather_data_source.dart';
@@ -19,7 +20,7 @@ class WeatherRepository {
     final weatherString = _weatherDataSource.fetchWeather();
     final weather = Weather.values.byNameOrNull(weatherString);
     if (weather == null) {
-      throw Exception('invalid weather detected.');
+      throw const YumemiWeatherRepositoryException('invalid weather detected.');
     }
     return weather;
   }
