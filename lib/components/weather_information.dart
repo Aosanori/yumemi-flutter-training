@@ -22,7 +22,7 @@ class WeatherInformation extends ConsumerWidget {
             barrierDismissible: false, // user must tap button!
             builder: (context) {
               return AlertDialog(
-                title: Text(next.asError!.error.toString()),
+                title: Text(error.toString()),
                 actions: <Widget>[
                   TextButton(
                     child: const Text('OK'),
