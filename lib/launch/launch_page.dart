@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_training/mixins/after_build_stateful_widget_mixin.dart';
 import 'package:go_router/go_router.dart';
 
 class LaunchPage extends StatefulWidget {
@@ -10,23 +11,20 @@ class LaunchPage extends StatefulWidget {
   State<LaunchPage> createState() => LaunchPageState();
 }
 
-class LaunchPageState extends State<LaunchPage> {
+class LaunchPageState extends State<LaunchPage>
+    with AfterBuildStatefulWidgetMixin {
+
   @override
-  void initState() {
-    unawaited(
-      WidgetsBinding.instance.endOfFrame.then((_) {
-        _repeatPushingWithWaitingTime();
-      }),
-    );
-    super.initState();
+  Future<void> afterFirstBuild() async {
+    await _redirectTo('/weather');
   }
 
-  Future<void> _repeatPushingWithWaitingTime() async {
+  Future<void> _redirectTo(String url) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     if (mounted) {
-      await context.push('/weather');
+      await context.push(url);
     }
-    await _repeatPushingWithWaitingTime();
+    await _redirectTo(url);
   }
 
   @override
