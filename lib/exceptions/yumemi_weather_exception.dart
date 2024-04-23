@@ -4,9 +4,11 @@ class YumemiWeatherException implements Exception {
   const YumemiWeatherException(this.error);
   final YumemiWeatherError error;
 
-  @override
-  String toString() => switch (error) {
+  String get message => switch (error) {
         YumemiWeatherError.invalidParameter => 'Input parameters are wrong.',
         YumemiWeatherError.unknown => 'Failed to load data',
       };
+
+  @override
+  String toString() => 'YumemiWeatherException: $message';
 }
