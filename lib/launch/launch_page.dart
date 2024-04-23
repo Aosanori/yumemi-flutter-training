@@ -13,22 +13,18 @@ class LaunchPage extends StatefulWidget {
 
 class LaunchPageState extends State<LaunchPage>
     with AfterBuildStatefulWidgetMixin {
+
   @override
-  void initState() {
-    unawaited(
-      WidgetsBinding.instance.endOfFrame.then((_) {
-        _repeatPushingWithWaitingTime();
-      }),
-    );
-    super.initState();
+  Future<void> afterFirstBuild() async {
+    await _redirectTo('/weather');
   }
 
-  Future<void> _repeatPushingWithWaitingTime() async {
+  Future<void> _redirectTo(String url) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     if (mounted) {
-      await context.push('/weather');
+      await context.push(url);
     }
-    await _repeatPushingWithWaitingTime();
+    await _redirectTo(url);
   }
 
   @override
