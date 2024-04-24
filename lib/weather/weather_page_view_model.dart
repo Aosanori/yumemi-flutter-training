@@ -1,4 +1,5 @@
 import 'package:flutter_training/weather/weather_data.dart';
+import 'package:flutter_training/weather/weather_data_request.dart';
 import 'package:flutter_training/weather/weather_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,10 +12,10 @@ class WeatherPageViewModel extends _$WeatherPageViewModel {
     return null;
   }
 
-  Future<void> fetchWeather() async {
+  Future<void> fetchWeather(WeatherDataRequest weatherDataRequest) async {
     final weatherRepository = ref.read(weatherRepositoryProvider);
     state = await AsyncValue.guard(() async {
-      return weatherRepository.fetchWeather();
+      return weatherRepository.fetchWeather(weatherDataRequest);
     });
   }
 }

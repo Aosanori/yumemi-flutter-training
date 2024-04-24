@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/components/action_button.dart';
 import 'package:flutter_training/components/weather_information.dart';
+import 'package:flutter_training/weather/weather_data_request.dart';
 import 'package:flutter_training/weather/weather_page_view_model.dart';
 import 'package:go_router/go_router.dart';
 
@@ -39,7 +40,17 @@ class WeatherPage extends ConsumerWidget {
                         ),
                         ActionButton(
                           buttonTitle: 'reload',
-                          onPressed: weatherNotifier.fetchWeather,
+                          onPressed: () async {
+                            final yumemiWeatherServicePayload = {
+                              'area': 'tokyo',
+                              'date': DateTime.now().toIso8601String(),
+                            };
+                            await weatherNotifier.fetchWeather(
+                              WeatherDataRequest.fromJson(
+                                yumemiWeatherServicePayload,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
