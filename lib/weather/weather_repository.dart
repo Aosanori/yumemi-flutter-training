@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_training/exceptions/yumemi_weather_repository_exception_error.dart';
 import 'package:flutter_training/weather/weather_data.dart';
 import 'package:flutter_training/weather/weather_data_source.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'weather_repository.g.dart';
@@ -23,7 +24,7 @@ class WeatherRepository {
       final weatherJson = json.decode(weatherString) as Map<String, dynamic>;
       final weatherData = WeatherData.fromJson(weatherJson);
       return weatherData;
-    } on Exception catch (_) {
+    } on CheckedFromJsonException catch (_) {
       throw const YumemiWeatherRepositoryException('invalid data detected.');
     }
   }
