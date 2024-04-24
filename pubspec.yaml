@@ -11,10 +11,9 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^2.5.1
   flutter_svg: ^2.0.10+1
-  freezed: ^2.5.2
   freezed_annotation: ^2.4.1
   go_router: ^13.2.4
-  json_serializable: ^6.1.5
+  json_annotation: ^4.8.1
   riverpod_annotation: ^2.3.5
   simple_logger: ^1.9.0+3
   yumemi_weather:
@@ -29,6 +28,8 @@ dev_dependencies:
   flutter_gen_runner: ^5.4.0
   flutter_test:
     sdk: flutter
+  freezed: ^2.5.2
+  json_serializable: ^6.1.5
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
   yumemi_lints: ^1.7.0 
