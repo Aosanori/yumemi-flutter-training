@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/components/temperature_display.dart';
 import 'package:flutter_training/components/weather_image.dart';
 import 'package:flutter_training/weather/weather_page_view_model.dart';
 
@@ -9,9 +10,8 @@ class WeatherInformation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final labelLarge = Theme.of(context).textTheme.labelLarge!;
     final weatherState = ref.watch(weatherPageViewModelProvider);
-    final weather = weatherState.valueOrNull;
+    final weatherData = weatherState.valueOrNull;
     /// APIのエラー時に表示するダイアログ
     ref.listen(
       weatherPageViewModelProvider,
@@ -43,24 +43,20 @@ class WeatherInformation extends ConsumerWidget {
       children: [
         AspectRatio(
           aspectRatio: 1,
-          child: weather != null ?  WeatherImage(weather) : const Placeholder(),
+          child: weatherData != null
+              ? WeatherImage(weatherData.weatherCondition)
+              : const Placeholder(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Text(
-                '** ℃',
-                style: labelLarge.copyWith(color: Colors.blue),
-              ),
+            TemperatureDisplay(
+              temperature: weatherData?.minTemperature,
+              textColor: Colors.blue,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Text(
-                '** ℃',
-                style: labelLarge.copyWith(color: Colors.red),
-              ),
+            TemperatureDisplay(
+              temperature: weatherData?.maxTemperature,
+              textColor: Colors.red,
             ),
           ],
         ),

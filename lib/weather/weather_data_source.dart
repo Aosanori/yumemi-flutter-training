@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_training/exceptions/yumemi_weather_exception.dart';
 import 'package:flutter_training/weather/yumemi_weather_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,10 +19,15 @@ class WeatherDataSource {
   final YumemiWeather _yumemiWeatherService;
 
   String fetchWeather() {
+    final payload = {
+      'area': 'tokyo',
+      'date': DateTime.now().toIso8601String(),
+    };
     try {
       SimpleLogger()
           .info('Getting weather data from Yumemi Weather Service...');
-      final weatherData = _yumemiWeatherService.fetchThrowsWeather('tokyo');
+      final weatherData =
+          _yumemiWeatherService.fetchWeather(json.encode(payload));
       SimpleLogger()
           .info('Complete to get weather data from Yumemi Weather Service!');
       return weatherData;
