@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: type=lint, duplicate_ignore
+
 part of 'weather_page_view_model.dart';
 
 // **************************************************************************
@@ -7,7 +9,7 @@ part of 'weather_page_view_model.dart';
 // **************************************************************************
 
 String _$weatherPageViewModelHash() =>
-    r'04e06325a9c5ad4a0adcff0947cb3ce789247a0e';
+    r'a1620e6122f396988de192b915ae037f8494cdc3';
 
 /// See also [WeatherPageViewModel].
 @ProviderFor(WeatherPageViewModel)

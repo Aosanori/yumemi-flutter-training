@@ -136,8 +136,7 @@ class __$$WeatherDataImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$WeatherDataImpl implements _WeatherData {
   const _$WeatherDataImpl(
       {required this.weatherCondition,

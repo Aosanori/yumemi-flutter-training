@@ -5,7 +5,6 @@ part 'weather_data.g.dart';
 
 @freezed
 class WeatherData with _$WeatherData {
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory WeatherData({
     required WeatherCondition weatherCondition,
     required int maxTemperature,
