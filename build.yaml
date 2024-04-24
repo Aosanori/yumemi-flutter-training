@@ -13,4 +13,4 @@ targets:
         options:
           checked: true
           explicit_to_json: true
-          field_rename: snake 
+          field_rename: snake
