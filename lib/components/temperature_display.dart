@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class TemperatureDisplay extends StatelessWidget {
   const TemperatureDisplay({
-    required int? temperature, required Color textColor, super.key,
+    required int? temperature,
+    required Color textColor,
+    super.key,
   })  : _textColor = textColor,
         _temperature = temperature;
   final int? _temperature;
@@ -15,7 +17,7 @@ class TemperatureDisplay extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Text(
-        _temperature != null ? '$_temperature ℃' : '** ℃',
+        '${_temperature ??  '**'} ℃',
         style: textStyle,
       ),
     );
