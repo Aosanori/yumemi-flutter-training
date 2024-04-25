@@ -178,4 +178,88 @@ void main() {
       );
     });
   });
+
+  group('weatherPageの異常系テスト', () {
+    testWidgets('YumemiWeatherError.unknown', (tester) async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      await tester.binding.setSurfaceSize(const Size(430, 932));
+      final weatherRepository = MockWeatherRepository();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            weatherRepositoryProvider.overrideWith(
+              (ref) => weatherRepository,
+            ),
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+      when(weatherRepository.fetchWeather(any))
+          .thenThrow(const YumemiWeatherException(YumemiWeatherError.unknown));
+
+      await tester.tap(find.text('reload'));
+      await tester.pump();
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(
+        find.text('YumemiWeatherException: Failed to load data'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('YumemiWeatherError.invalidParameter', (tester) async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      await tester.binding.setSurfaceSize(const Size(430, 932));
+      final weatherRepository = MockWeatherRepository();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            weatherRepositoryProvider.overrideWith(
+              (ref) => weatherRepository,
+            ),
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+      when(weatherRepository.fetchWeather(any)).thenThrow(
+        const YumemiWeatherException(YumemiWeatherError.invalidParameter),
+      );
+
+      await tester.tap(find.text('reload'));
+      await tester.pump();
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(
+        find.text('YumemiWeatherException: Input parameters are wrong.'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('YumemiWeatherRepositoryException', (tester) async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      await tester.binding.setSurfaceSize(const Size(430, 932));
+      final weatherRepository = MockWeatherRepository();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            weatherRepositoryProvider.overrideWith(
+              (ref) => weatherRepository,
+            ),
+          ],
+          child: const MaterialApp(
+            home: WeatherPage(),
+          ),
+        ),
+      );
+      when(weatherRepository.fetchWeather(any)).thenThrow(
+        YumemiWeatherRepositoryException,
+      );
+
+      await tester.tap(find.text('reload'));
+      await tester.pump();
+      expect(find.byType(AlertDialog), findsOneWidget);
+    });
+  });
 }
