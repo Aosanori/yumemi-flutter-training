@@ -99,50 +99,49 @@ void main() {
         ),
       );
     });
+  });
+  group('weatherPageViewModelの異常系テスト', () {
+    test('null', () async {
+      when(weatherRepository.fetchWeather(weatherDataRequest))
+          .thenAnswer((realInvocation) => null);
+      await weatherPageViewModel.fetchWeather(weatherDataRequest);
+      expect(
+        weatherPageViewModel.state,
+        const AsyncData<WeatherData?>(null),
+      );
+    });
 
-    group('weatherPageViewModelの異常系テスト', () {
-      test('null', () async {
-        when(weatherRepository.fetchWeather(weatherDataRequest))
-            .thenAnswer((realInvocation) => null);
-        await weatherPageViewModel.fetchWeather(weatherDataRequest);
-        expect(
-          weatherPageViewModel.state,
-          const AsyncData<WeatherData?>(null),
-        );
-      });
+    test('YumemiWeatherError.invalidParameter', () async {
+      when(weatherRepository.fetchWeather(weatherDataRequest))
+          .thenThrow(YumemiWeatherError.invalidParameter);
+      await weatherPageViewModel.fetchWeather(weatherDataRequest);
+      expect(weatherPageViewModel.state is AsyncError, true);
+      expect(
+        weatherPageViewModel.state.error,
+        YumemiWeatherError.invalidParameter,
+      );
+    });
 
-      test('YumemiWeatherError.invalidParameter', () async {
-        when(weatherRepository.fetchWeather(weatherDataRequest))
-            .thenThrow(YumemiWeatherError.invalidParameter);
-        await weatherPageViewModel.fetchWeather(weatherDataRequest);
-        expect(weatherPageViewModel.state is AsyncError, true);
-        expect(
-          weatherPageViewModel.state.error,
-          YumemiWeatherError.invalidParameter,
-        );
-      });
+    test('YumemiWeatherError.unknown', () async {
+      when(weatherRepository.fetchWeather(weatherDataRequest))
+          .thenThrow(YumemiWeatherError.unknown);
+      await weatherPageViewModel.fetchWeather(weatherDataRequest);
+      expect(weatherPageViewModel.state is AsyncError, true);
+      expect(
+        weatherPageViewModel.state.error,
+        YumemiWeatherError.unknown,
+      );
+    });
 
-      test('YumemiWeatherError.unknown', () async {
-        when(weatherRepository.fetchWeather(weatherDataRequest))
-            .thenThrow(YumemiWeatherError.unknown);
-        await weatherPageViewModel.fetchWeather(weatherDataRequest);
-        expect(weatherPageViewModel.state is AsyncError, true);
-        expect(
-          weatherPageViewModel.state.error,
-          YumemiWeatherError.unknown,
-        );
-      });
-
-      test('YumemiWeatherRepositoryException', () async {
-        when(weatherRepository.fetchWeather(weatherDataRequest))
-            .thenThrow(YumemiWeatherRepositoryException);
-        await weatherPageViewModel.fetchWeather(weatherDataRequest);
-        expect(weatherPageViewModel.state is AsyncError, true);
-        expect(
-          weatherPageViewModel.state.error,
-          YumemiWeatherRepositoryException,
-        );
-      });
+    test('YumemiWeatherRepositoryException', () async {
+      when(weatherRepository.fetchWeather(weatherDataRequest))
+          .thenThrow(YumemiWeatherRepositoryException);
+      await weatherPageViewModel.fetchWeather(weatherDataRequest);
+      expect(weatherPageViewModel.state is AsyncError, true);
+      expect(
+        weatherPageViewModel.state.error,
+        YumemiWeatherRepositoryException,
+      );
     });
   });
 }
