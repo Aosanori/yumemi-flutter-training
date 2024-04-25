@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_training/exceptions/yumemi_weather_exception.dart';
 import 'package:flutter_training/weather/weather_data_source.dart';
 import 'package:flutter_training/weather/yumemi_weather_service.dart';
 import 'package:mockito/annotations.dart';
@@ -35,7 +36,7 @@ void main() {
     },
   );
 
-  group('weatherDataSourceのテスト', () {
+  group('weatherDataSourceの正常系テスト', () {
     test('sunny', () {
       final response = json.encode(
         {
@@ -77,6 +78,39 @@ void main() {
           .thenAnswer((_) => response);
       final weatherString = weatherDataSource.fetchWeather(payload);
       expect(weatherString, response);
+    });
+  });
+
+  group('weatherDataSourceの異常系テスト', () {
+    test('YumemiWeatherError.invalidParameter', () {
+      when(yumemiWeatherService.fetchWeather(payload))
+          .thenThrow(YumemiWeatherError.invalidParameter);
+
+      expect(
+        () => weatherDataSource.fetchWeather(payload),
+        throwsA(
+          predicate(
+            (e) =>
+                e is YumemiWeatherException &&
+                e.message == 'Input parameters are wrong.',
+          ),
+        ),
+      );
+    });
+
+    test('YumemiWeatherError.unknown', () {
+      when(yumemiWeatherService.fetchWeather(payload))
+          .thenThrow(YumemiWeatherError.unknown);
+      expect(
+        () => weatherDataSource.fetchWeather(payload),
+        throwsA(
+          predicate(
+            (e) =>
+                e is YumemiWeatherException &&
+                e.message == 'Failed to load data',
+          ),
+        ),
+      );
     });
   });
 }
