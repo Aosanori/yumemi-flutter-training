@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_training/exceptions/yumemi_weather_exception.dart';
 import 'package:flutter_training/exceptions/yumemi_weather_repository_exception_error.dart';
 import 'package:flutter_training/weather/weather_data.dart';
 import 'package:flutter_training/weather/weather_data_request.dart';
@@ -28,6 +29,8 @@ class WeatherRepository {
       return weatherData;
     } on CheckedFromJsonException catch (_) {
       throw const YumemiWeatherRepositoryException('invalid data detected.');
+    } on YumemiWeatherException catch (_) {
+      rethrow;
     }
   }
 }
