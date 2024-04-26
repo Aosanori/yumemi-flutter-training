@@ -17,23 +17,40 @@ class WeatherInformation extends ConsumerWidget {
       weatherPageViewModelProvider,
       (previous, next) async {
         await next.maybeWhen(
-          error: (error, _) async => showDialog<void>(
+          error: (error, _) async {
+            Navigator.pop(context);
+            await showDialog<void>(
+              context: context,
+              barrierDismissible: false, // user must tap button!
+              builder: (context) {
+                return AlertDialog(
+                  title: Text(error.toString()),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          loading: () => showDialog<void>(
+            barrierDismissible: false,
             context: context,
-            barrierDismissible: false, // user must tap button!
             builder: (context) {
-              return AlertDialog(
-                title: Text(error.toString()),
-                actions: <Widget>[
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
+              return const Center(
+                child: CircularProgressIndicator(),
               );
             },
           ),
+          data: (data){
+            if (data != null) {
+              Navigator.pop(context);
+            }
+          },
           orElse: () {},
         );
       },
