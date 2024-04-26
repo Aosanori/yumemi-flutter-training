@@ -14,6 +14,7 @@ class WeatherPageViewModel extends _$WeatherPageViewModel {
 
   Future<void> fetchWeather(WeatherDataRequest weatherDataRequest) async {
     final weatherRepository = ref.read(weatherRepositoryProvider);
+    state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       return weatherRepository.fetchWeather(weatherDataRequest);
     });
