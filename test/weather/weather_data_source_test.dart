@@ -45,7 +45,7 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.fetchWeather(payload))
+      when(yumemiWeatherService.syncFetchWeather(payload))
           .thenAnswer((_) => response);
       final weatherString = weatherDataSource.fetchWeather(payload);
       expect(weatherString, response);
@@ -59,7 +59,7 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.fetchWeather(payload))
+      when(yumemiWeatherService.syncFetchWeather(payload))
           .thenAnswer((_) => response);
       final weatherString = weatherDataSource.fetchWeather(payload);
       expect(weatherString, response);
@@ -73,7 +73,7 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.fetchWeather(payload))
+      when(yumemiWeatherService.syncFetchWeather(payload))
           .thenAnswer((_) => response);
       final weatherString = weatherDataSource.fetchWeather(payload);
       expect(weatherString, response);

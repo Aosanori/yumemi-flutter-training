@@ -21,7 +21,7 @@ class WeatherDataSource {
       SimpleLogger()
           .info('Getting weather data from Yumemi Weather Service...');
       final weatherData =
-          _yumemiWeatherService.fetchWeather(payload);
+          _yumemiWeatherService.syncFetchWeather(payload);
       SimpleLogger()
           .info('Complete to get weather data from Yumemi Weather Service!');
       return weatherData;
