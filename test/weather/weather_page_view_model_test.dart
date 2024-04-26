@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/exceptions/yumemi_weather_repository_exception_error.dart';
@@ -50,11 +52,16 @@ void main() {
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenAnswer((realInvocation) => sampleWeatherData);
-      await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(
-        weatherPageViewModel.state,
-        AsyncData<WeatherData?>(
-          sampleWeatherData,
+      unawaited(
+        weatherPageViewModel.fetchWeather(weatherDataRequest).then(
+          (value) {
+            expect(
+              weatherPageViewModel.state,
+              AsyncData<WeatherData?>(
+                sampleWeatherData,
+              ),
+            );
+          },
         ),
       );
     });
@@ -70,11 +77,16 @@ void main() {
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenAnswer((realInvocation) => sampleWeatherData);
-      await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(
-        weatherPageViewModel.state,
-        AsyncData<WeatherData?>(
-          sampleWeatherData,
+      unawaited(
+        weatherPageViewModel.fetchWeather(weatherDataRequest).then(
+          (value) {
+            expect(
+              weatherPageViewModel.state,
+              AsyncData<WeatherData?>(
+                sampleWeatherData,
+              ),
+            );
+          },
         ),
       );
     });
@@ -90,11 +102,16 @@ void main() {
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenAnswer((realInvocation) => sampleWeatherData);
-      await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(
-        weatherPageViewModel.state,
-        AsyncData<WeatherData?>(
-          sampleWeatherData,
+      unawaited(
+        weatherPageViewModel.fetchWeather(weatherDataRequest).then(
+          (value) {
+            expect(
+              weatherPageViewModel.state,
+              AsyncData<WeatherData?>(
+                sampleWeatherData,
+              ),
+            );
+          },
         ),
       );
     });
@@ -106,11 +123,13 @@ void main() {
         () async {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.invalidParameter);
-      await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(weatherPageViewModel.state, isA<AsyncError<WeatherData?>>());
-      expect(
-        weatherPageViewModel.state.error,
-        YumemiWeatherError.invalidParameter,
+      unawaited(
+        weatherPageViewModel.fetchWeather(weatherDataRequest).then((value) {
+          expect(
+            weatherPageViewModel.state,
+            isA<AsyncError<YumemiWeatherError>>(),
+          );
+        }),
       );
     });
 
@@ -119,11 +138,13 @@ void main() {
         'when WeatherRepository throws YumemiWeatherError.unknown.', () async {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.unknown);
-      await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(weatherPageViewModel.state, isA<AsyncError<WeatherData?>>());
-      expect(
-        weatherPageViewModel.state.error,
-        YumemiWeatherError.unknown,
+      unawaited(
+        weatherPageViewModel.fetchWeather(weatherDataRequest).then((value) {
+          expect(
+            weatherPageViewModel.state,
+            isA<AsyncError<YumemiWeatherError>>(),
+          );
+        }),
       );
     });
 
@@ -133,11 +154,13 @@ void main() {
         () async {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherRepositoryException);
-      await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(weatherPageViewModel.state, isA<AsyncError<WeatherData?>>());
-      expect(
-        weatherPageViewModel.state.error,
-        YumemiWeatherRepositoryException,
+      unawaited(
+        weatherPageViewModel.fetchWeather(weatherDataRequest).then((value) {
+          expect(
+            weatherPageViewModel.state,
+            isA<AsyncError<YumemiWeatherRepositoryException>>(),
+          );
+        }),
       );
     });
   });

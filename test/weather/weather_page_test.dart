@@ -72,7 +72,14 @@ void main() {
 
       when(weatherRepository.fetchWeather(any)).thenReturn(sampleWeatherData);
       await tester.tap(find.text('reload'));
-      await tester.pump();
+      await tester.pump(); // ここでCircularProgressIndicatorは始まる。
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is CircularProgressIndicator,
+        ),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle(); // ここで読み込みが終わるまで早送り。
 
       expect(findWithAssetName('assets/sunny.svg'), findsOneWidget);
       expect(find.text('26 ℃'), findsWidgets);
@@ -114,6 +121,14 @@ void main() {
       when(weatherRepository.fetchWeather(any)).thenReturn(sampleWeatherData);
       await tester.tap(find.text('reload'));
       await tester.pump();
+      await tester.pump(); // ここでCircularProgressIndicatorは始まる。
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is CircularProgressIndicator,
+        ),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle(); // ここで読み込みが終わるまで早送り。
 
       expect(findWithAssetName('assets/cloudy.svg'), findsOneWidget);
       expect(find.text('20 ℃'), findsWidgets);
@@ -154,7 +169,14 @@ void main() {
 
       when(weatherRepository.fetchWeather(any)).thenReturn(sampleWeatherData);
       await tester.tap(find.text('reload'));
-      await tester.pump();
+      await tester.pump(); // ここでCircularProgressIndicatorは始まる。
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is CircularProgressIndicator,
+        ),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle(); // ここで読み込みが終わるまで早送り。
 
       expect(findWithAssetName('assets/rainy.svg'), findsOneWidget);
       expect(find.text('16 ℃'), findsWidgets);
@@ -193,7 +215,15 @@ void main() {
           .thenThrow(const YumemiWeatherException(YumemiWeatherError.unknown));
 
       await tester.tap(find.text('reload'));
-      await tester.pump();
+      await tester.pump(); // ここでCircularProgressIndicatorは始まる。
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is CircularProgressIndicator,
+        ),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle(); // ここで読み込みが終わるまで早送り。
+
       expect(find.byType(AlertDialog), findsOneWidget);
       expect(
         find.text('YumemiWeatherException: Failed to load data'),
@@ -224,7 +254,14 @@ void main() {
       );
 
       await tester.tap(find.text('reload'));
-      await tester.pump();
+      await tester.pump(); // ここでCircularProgressIndicatorは始まる。
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is CircularProgressIndicator,
+        ),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle(); // ここで読み込みが終わるまで早送り。
       expect(find.byType(AlertDialog), findsOneWidget);
       expect(
         find.text('YumemiWeatherException: Input parameters are wrong.'),
@@ -256,6 +293,13 @@ void main() {
 
       await tester.tap(find.text('reload'));
       await tester.pump();
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is CircularProgressIndicator,
+        ),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle(); // ここで読み込みが終わるまで早送り。
       expect(find.byType(AlertDialog), findsOneWidget);
     });
   });
