@@ -24,6 +24,7 @@ void main() {
         weatherRepositoryProvider.overrideWith((ref) => weatherRepository),
       ],
     );
+    addTearDown(container.dispose);
     weatherPageViewModel =
         container.read(weatherPageViewModelProvider.notifier);
   });

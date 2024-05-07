@@ -27,6 +27,7 @@ void main() {
         }),
       ],
     );
+    addTearDown(container.dispose);
     weatherRepository = container.read(weatherRepositoryProvider);
   });
 
