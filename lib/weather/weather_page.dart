@@ -41,15 +41,11 @@ class WeatherPage extends ConsumerWidget {
                         ActionButton(
                           buttonTitle: 'reload',
                           onPressed: () async {
-                            final yumemiWeatherServicePayload = {
-                              'area': 'tokyo',
-                              'date': DateTime.now().toIso8601String(),
-                            };
-                            await weatherNotifier.fetchWeather(
-                              WeatherDataRequest.fromJson(
-                                yumemiWeatherServicePayload,
-                              ),
+                            final payload = WeatherDataRequest(
+                              area: 'tokyo',
+                              date: DateTime.now(),
                             );
+                            await weatherNotifier.fetchWeather(payload);
                           },
                         ),
                       ],

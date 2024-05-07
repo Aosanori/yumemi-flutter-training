@@ -30,6 +30,9 @@ void main() {
     weatherRepository = container.read(weatherRepositoryProvider);
   });
 
+  /// weatherDataSourceではjsonで入出力する形となっております。
+  /// そこでweatherDataSourceとweatherRepositoryへの入力を揃えるために
+  /// weatherDataRequestとweatherDataPayloadをそれぞれ一つのMapから生成しました。
   final payload = {
     'area': 'tokyo',
     'date': DateTime.now().toIso8601String(),

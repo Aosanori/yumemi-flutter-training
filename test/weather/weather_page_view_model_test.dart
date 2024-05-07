@@ -28,12 +28,10 @@ void main() {
         container.read(weatherPageViewModelProvider.notifier);
   });
 
-  final payload = {
-    'area': 'tokyo',
-    'date': DateTime.now().toIso8601String(),
-  };
-
-  final weatherDataRequest = WeatherDataRequest.fromJson(payload);
+  final weatherDataRequest = WeatherDataRequest(
+    area: 'tokyo',
+    date: DateTime.now(),
+  );
 
   group('weatherPageViewModelの正常系テスト', () {
     test('initialize', () {
