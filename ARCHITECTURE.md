@@ -47,20 +47,22 @@ flowchart TB
       end
     end
     YumemiWeatherService
+    WeatherDataSource
     WeatherPage
   end
-  YumemiWeatherService ---> WeatherRepository
-  WeatherRepository ---> WeatherData
-  WeatherData ---> WeatherPageViewModel
+  YumemiWeatherService ---> WeatherDataSource
+  WeatherDataSource ---> WeatherRepository
+  WeatherRepository  ---> WeatherPageViewModel
   WeatherPageViewModel ---> WeatherPage
 
-  YumemiWeatherService ..-> WeatherRepository
+  WeatherDataSource ..-> YumemiWeatherService
+  WeatherDataSource ..-> WeatherRepository
   WeatherRepository ..-> WeatherData
   WeatherPageViewModel ..-> WeatherData
   WeatherPage ..-> WeatherPageViewModel
 
   subgraph Arrows
-    start0[ ] ---> | Process | stop0[ ]
+    start0[ ] ---> | Control | stop0[ ]
     style start0 height:0px;
     style stop0 height:0px;
 
