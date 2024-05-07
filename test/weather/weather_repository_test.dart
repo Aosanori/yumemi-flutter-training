@@ -50,14 +50,20 @@ void main() {
             'weather_condition': 'sunny',
             'max_temperature': 33,
             'min_temperature': 20,
-            'date': '2024-04-24T12:09:46+09:00',
+            'date': '2024-04-24T12:09:46',
           },
         ),
       );
       final weather = weatherRepository.fetchWeather(weatherDataRequest);
-      expect(weather?.weatherCondition, WeatherCondition.sunny);
-      expect(weather?.maxTemperature, 33);
-      expect(weather?.minTemperature, 20);
+      expect(
+        weather,
+        WeatherData(
+          weatherCondition: WeatherCondition.sunny,
+          maxTemperature: 33,
+          minTemperature: 20,
+          date: DateTime(2024, 4, 24, 12, 9, 46),
+        ),
+      );
     });
 
     test('cloudy', () {
@@ -67,14 +73,20 @@ void main() {
             'weather_condition': 'cloudy',
             'max_temperature': 25,
             'min_temperature': 19,
-            'date': '2024-04-24T12:09:46+09:00',
+            'date': '2024-04-24T12:09:46',
           },
         ),
       );
       final weather = weatherRepository.fetchWeather(weatherDataRequest);
-      expect(weather?.weatherCondition, WeatherCondition.cloudy);
-      expect(weather?.maxTemperature, 25);
-      expect(weather?.minTemperature, 19);
+      expect(
+        weather,
+        WeatherData(
+          weatherCondition: WeatherCondition.cloudy,
+          maxTemperature: 25,
+          minTemperature: 19,
+          date: DateTime(2024, 4, 24, 12, 9, 46),
+        ),
+      );
     });
 
     test('rainy', () {
@@ -84,14 +96,20 @@ void main() {
             'weather_condition': 'rainy',
             'max_temperature': 25,
             'min_temperature': 21,
-            'date': '2024-04-24T12:09:46+09:00',
+            'date': '2024-04-24T12:09:46',
           },
         ),
       );
       final weather = weatherRepository.fetchWeather(weatherDataRequest);
-      expect(weather?.weatherCondition, WeatherCondition.rainy);
-      expect(weather?.maxTemperature, 25);
-      expect(weather?.minTemperature, 21);
+      expect(
+        weather,
+        WeatherData(
+          weatherCondition: WeatherCondition.rainy,
+          maxTemperature: 25,
+          minTemperature: 21,
+          date: DateTime(2024, 4, 24, 12, 9, 46),
+        ),
+      );
     });
   });
 
@@ -103,7 +121,7 @@ void main() {
             'weather_condition': 'snowy',
             'max_temperature': 1,
             'min_temperature': -9,
-            'date': '2024-04-24T12:09:46+09:00',
+            'date': '2024-04-24T12:09:46',
           },
         ),
       );
