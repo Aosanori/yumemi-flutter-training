@@ -43,7 +43,7 @@ void main() {
   final weatherDataPayload = json.encode(payload);
 
   group('weatherRepositoryの正常系テスト', () {
-    test('sunny', () {
+    test('When WeatherDataSource returns sunny.', () {
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) => json.encode(
           {
@@ -66,7 +66,7 @@ void main() {
       );
     });
 
-    test('cloudy', () {
+    test('When WeatherDataSource returns cloudy.', () {
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) => json.encode(
           {
@@ -89,7 +89,7 @@ void main() {
       );
     });
 
-    test('rainy', () {
+    test('When WeatherDataSource returns rainy.', () {
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) => json.encode(
           {
@@ -114,7 +114,7 @@ void main() {
   });
 
   group('weatherRepositoryの異常系テスト', () {
-    test('snowy', () {
+    test('When WeatherDataSource returns snowy. (including invalid value)', () {
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) => json.encode(
           {
@@ -133,7 +133,7 @@ void main() {
       );
     });
 
-    test('Not Appropriate Data Format.', () {
+    test('When the data is not appropriate format.', () {
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) => json.encode(
           {

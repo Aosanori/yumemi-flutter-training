@@ -39,7 +39,7 @@ void main() {
       expect(weatherPageViewModel.state, const AsyncData<WeatherData?>(null));
     });
 
-    test('sunny', () async {
+    test('When WeatherRepository returns WeatherCondition.sunny.', () async {
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'sunny',
@@ -59,7 +59,7 @@ void main() {
       );
     });
 
-    test('cloudy', () async {
+    test('When WeatherRepository returns WeatherCondition.cloudy.', () async {
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'cloudy',
@@ -79,7 +79,7 @@ void main() {
       );
     });
 
-    test('rainy', () async {
+    test('When WeatherRepository returns WeatherCondition.rainy.', () async {
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'cloudy',
@@ -100,7 +100,7 @@ void main() {
     });
   });
   group('weatherPageViewModelの異常系テスト', () {
-    test('null', () async {
+    test('When WeatherRepository returns null.', () async {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenAnswer((realInvocation) => null);
       await weatherPageViewModel.fetchWeather(weatherDataRequest);
@@ -110,7 +110,8 @@ void main() {
       );
     });
 
-    test('YumemiWeatherError.invalidParameter', () async {
+    test('When WeatherRepository throws YumemiWeatherError.invalidParameter.',
+        () async {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.invalidParameter);
       await weatherPageViewModel.fetchWeather(weatherDataRequest);
@@ -121,7 +122,7 @@ void main() {
       );
     });
 
-    test('YumemiWeatherError.unknown', () async {
+    test('When WeatherRepository throws YumemiWeatherError.unknown.', () async {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.unknown);
       await weatherPageViewModel.fetchWeather(weatherDataRequest);
@@ -132,7 +133,8 @@ void main() {
       );
     });
 
-    test('YumemiWeatherRepositoryException', () async {
+    test('When WeatherRepository throws YumemiWeatherRepositoryException.',
+        () async {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherRepositoryException);
       await weatherPageViewModel.fetchWeather(weatherDataRequest);

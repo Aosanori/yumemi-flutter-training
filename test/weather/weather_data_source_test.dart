@@ -38,7 +38,7 @@ void main() {
   );
 
   group('weatherDataSourceの正常系テスト', () {
-    test('sunny', () {
+    test('When YumemiWeatherService returns sunny.', () {
       final response = json.encode(
         {
           'weather_condition': 'sunny',
@@ -52,7 +52,7 @@ void main() {
       final weatherString = weatherDataSource.fetchWeather(payload);
       expect(weatherString, response);
     });
-    test('cloudy', () {
+    test('When YumemiWeatherService returns cloudy.', () {
       final response = json.encode(
         {
           'weather_condition': 'cloudy',
@@ -66,7 +66,7 @@ void main() {
       final weatherString = weatherDataSource.fetchWeather(payload);
       expect(weatherString, response);
     });
-    test('rainy', () {
+    test('When YumemiWeatherService returns rainy.', () {
       final response = json.encode(
         {
           'weather_condition': 'rainy',
@@ -83,7 +83,9 @@ void main() {
   });
 
   group('weatherDataSourceの異常系テスト', () {
-    test('YumemiWeatherError.invalidParameter', () {
+    test(
+        'When YumemiWeatherService throws YumemiWeatherError.invalidParameter.',
+        () {
       when(yumemiWeatherService.fetchWeather(payload))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -99,7 +101,7 @@ void main() {
       );
     });
 
-    test('YumemiWeatherError.unknown', () {
+    test('When YumemiWeatherService throws YumemiWeatherError.unknown.', () {
       when(yumemiWeatherService.fetchWeather(payload))
           .thenThrow(YumemiWeatherError.unknown);
       expect(
