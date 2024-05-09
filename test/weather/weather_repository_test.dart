@@ -114,7 +114,10 @@ void main() {
   });
 
   group('weatherRepositoryの異常系テスト', () {
-    test('When WeatherDataSource returns snowy. (including invalid value)', () {
+    test(
+        'Throws YumemiWeatherRepositoryException '
+        'When WeatherDataSource returns snowy. '
+        '(including invalid value)', () {
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) => json.encode(
           {
@@ -133,7 +136,9 @@ void main() {
       );
     });
 
-    test('When the data is not appropriate format.', () {
+    test(
+        'Throws YumemiWeatherRepositoryException '
+        'When the data is not appropriate format.', () {
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) => json.encode(
           {
