@@ -84,9 +84,9 @@ void main() {
 
   group('weatherDataSourceの異常系テスト', () {
     test(
-        // ignore: lines_longer_than_80_chars
-        'Throws YumemiWeatherException when YumemiWeatherError.invalidParameter is thrown.',
-        () {
+        'Throws YumemiWeatherException '
+        'with message of "Input parameters are wrong." '
+        'when YumemiWeatherError.invalidParameter is thrown.', () {
       when(yumemiWeatherService.fetchWeather(payload))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -103,9 +103,9 @@ void main() {
     });
 
     test(
-        // ignore: lines_longer_than_80_chars
-        'Throws YumemiWeatherException when YumemiWeatherError.unknown is thrown .',
-        () {
+        'Throws YumemiWeatherException '
+        'with message of "Failed to load data" '
+        'when YumemiWeatherError.unknown is thrown.', () {
       when(yumemiWeatherService.fetchWeather(payload))
           .thenThrow(YumemiWeatherError.unknown);
       expect(
