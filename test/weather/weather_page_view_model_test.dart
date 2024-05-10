@@ -107,7 +107,7 @@ void main() {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.invalidParameter);
       await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(weatherPageViewModel.state is AsyncError, true);
+      expect(weatherPageViewModel.state, isA<AsyncError<WeatherData?>>());
       expect(
         weatherPageViewModel.state.error,
         YumemiWeatherError.invalidParameter,
@@ -120,7 +120,7 @@ void main() {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.unknown);
       await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(weatherPageViewModel.state is AsyncError, true);
+      expect(weatherPageViewModel.state, isA<AsyncError<WeatherData?>>());
       expect(
         weatherPageViewModel.state.error,
         YumemiWeatherError.unknown,
@@ -134,7 +134,7 @@ void main() {
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherRepositoryException);
       await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(weatherPageViewModel.state is AsyncError, true);
+      expect(weatherPageViewModel.state, isA<AsyncError<WeatherData?>>());
       expect(
         weatherPageViewModel.state.error,
         YumemiWeatherRepositoryException,
