@@ -85,7 +85,7 @@ void main() {
         'Throws YumemiWeatherException '
         'with message of "Input parameters are wrong." '
         'when YumemiWeatherError.invalidParameter is thrown.', () {
-      when(yumemiWeatherService.fetchWeather(payload))
+      when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
       expect(
@@ -104,7 +104,7 @@ void main() {
         'Throws YumemiWeatherException '
         'with message of "Failed to load data" '
         'when YumemiWeatherError.unknown is thrown.', () {
-      when(yumemiWeatherService.fetchWeather(payload))
+      when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.unknown);
       expect(
         () => weatherDataSource.fetchWeather(payload),
