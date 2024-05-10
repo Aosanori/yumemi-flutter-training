@@ -22,9 +22,7 @@ void main() {
     weatherDataSource = MockWeatherDataSource();
     container = ProviderContainer(
       overrides: [
-        weatherDataSourceProvider.overrideWith((ref) {
-          return weatherDataSource;
-        }),
+        weatherDataSourceProvider.overrideWithValue(weatherDataSource),
       ],
     );
     addTearDown(container.dispose);

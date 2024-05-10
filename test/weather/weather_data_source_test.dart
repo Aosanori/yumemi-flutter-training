@@ -21,9 +21,7 @@ void main() {
     yumemiWeatherService = MockYumemiWeather();
     container = ProviderContainer(
       overrides: [
-        yumemiWeatherServiceProvider.overrideWith((ref) {
-          return yumemiWeatherService;
-        }),
+        yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
       ],
     );
     addTearDown(container.dispose);

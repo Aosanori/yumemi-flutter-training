@@ -21,7 +21,7 @@ void main() {
     weatherRepository = MockWeatherRepository();
     container = ProviderContainer(
       overrides: [
-        weatherRepositoryProvider.overrideWith((ref) => weatherRepository),
+        weatherRepositoryProvider.overrideWithValue(weatherRepository),
       ],
     );
     addTearDown(container.dispose);
