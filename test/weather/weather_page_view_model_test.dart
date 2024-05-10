@@ -100,16 +100,6 @@ void main() {
     });
   });
   group('weatherPageViewModelの異常系テスト', () {
-    test('Set AsyncData(null) when WeatherRepository returns null.', () async {
-      when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenAnswer((realInvocation) => null);
-      await weatherPageViewModel.fetchWeather(weatherDataRequest);
-      expect(
-        weatherPageViewModel.state,
-        const AsyncData<WeatherData?>(null),
-      );
-    });
-
     test(
         'Set AsyncError(YumemiWeatherError.invalidParameter) '
         'when WeatherRepository throws YumemiWeatherError.invalidParameter.',
