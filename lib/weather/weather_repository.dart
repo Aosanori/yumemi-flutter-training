@@ -19,7 +19,7 @@ class WeatherRepository {
   WeatherRepository(this._weatherDataSource);
   final WeatherDataSource _weatherDataSource;
 
-  WeatherData? fetchWeather(WeatherDataRequest weatherDataRequest) {
+  WeatherData fetchWeather(WeatherDataRequest weatherDataRequest) {
     final payload = json.encode(weatherDataRequest.toJson());
     final weatherString = _weatherDataSource.fetchWeather(payload);
     try {

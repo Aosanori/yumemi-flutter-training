@@ -3,9 +3,9 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter_training/weather/weather_data.dart' as _i3;
+import 'package:flutter_training/weather/weather_data.dart' as _i2;
 import 'package:flutter_training/weather/weather_data_request.dart' as _i4;
-import 'package:flutter_training/weather/weather_repository.dart' as _i2;
+import 'package:flutter_training/weather/weather_repository.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -21,17 +21,40 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeWeatherData_0 extends _i1.SmartFake implements _i2.WeatherData {
+  _FakeWeatherData_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [WeatherRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWeatherRepository extends _i1.Mock implements _i2.WeatherRepository {
+class MockWeatherRepository extends _i1.Mock implements _i3.WeatherRepository {
   @override
-  _i3.WeatherData? fetchWeather(_i4.WeatherDataRequest? weatherDataRequest) =>
+  _i2.WeatherData fetchWeather(_i4.WeatherDataRequest? weatherDataRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchWeather,
           [weatherDataRequest],
         ),
-        returnValueForMissingStub: null,
-      ) as _i3.WeatherData?);
+        returnValue: _FakeWeatherData_0(
+          this,
+          Invocation.method(
+            #fetchWeather,
+            [weatherDataRequest],
+          ),
+        ),
+        returnValueForMissingStub: _FakeWeatherData_0(
+          this,
+          Invocation.method(
+            #fetchWeather,
+            [weatherDataRequest],
+          ),
+        ),
+      ) as _i2.WeatherData);
 }
