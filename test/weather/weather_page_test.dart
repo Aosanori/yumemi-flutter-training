@@ -28,8 +28,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            weatherRepositoryProvider.overrideWith(
-              (ref) => MockWeatherRepository(),
+            weatherRepositoryProvider.overrideWithValue(
+              MockWeatherRepository(),
             ),
           ],
           child: const MaterialApp(
@@ -53,8 +53,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            weatherRepositoryProvider.overrideWith(
-              (ref) => weatherRepository,
+            weatherRepositoryProvider.overrideWithValue(
+              weatherRepository,
             ),
           ],
           child: const MaterialApp(
@@ -64,11 +64,11 @@ void main() {
       );
 
       final sampleWeatherData = WeatherData(
-          weatherCondition: WeatherCondition.sunny,
-          maxTemperature: 26,
-          minTemperature: -20,
-          date: DateTime(2024, 4, 24, 16, 46, 08),
-          );
+        weatherCondition: WeatherCondition.sunny,
+        maxTemperature: 26,
+        minTemperature: -20,
+        date: DateTime(2024, 4, 24, 16, 46, 08),
+      );
 
       when(weatherRepository.fetchWeather(any))
           .thenAnswer((realInvocation) => sampleWeatherData);
@@ -95,8 +95,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            weatherRepositoryProvider.overrideWith(
-              (ref) => weatherRepository,
+            weatherRepositoryProvider.overrideWithValue(
+              weatherRepository,
             ),
           ],
           child: const MaterialApp(
@@ -106,11 +106,11 @@ void main() {
       );
 
       final sampleWeatherData = WeatherData(
-          weatherCondition: WeatherCondition.cloudy,
-          maxTemperature: 20,
-          minTemperature: -20,
-          date: DateTime(2024, 4, 24, 16, 46, 08),
-          );
+        weatherCondition: WeatherCondition.cloudy,
+        maxTemperature: 20,
+        minTemperature: -20,
+        date: DateTime(2024, 4, 24, 16, 46, 08),
+      );
 
       when(weatherRepository.fetchWeather(any))
           .thenAnswer((realInvocation) => sampleWeatherData);
@@ -137,8 +137,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            weatherRepositoryProvider.overrideWith(
-              (ref) => weatherRepository,
+            weatherRepositoryProvider.overrideWithValue(
+              weatherRepository,
             ),
           ],
           child: const MaterialApp(
@@ -148,11 +148,11 @@ void main() {
       );
 
       final sampleWeatherData = WeatherData(
-          weatherCondition: WeatherCondition.rainy,
-          maxTemperature: 16,
-          minTemperature: -20,
-          date: DateTime(2024, 4, 24, 16, 46, 08),
-          );
+        weatherCondition: WeatherCondition.rainy,
+        maxTemperature: 16,
+        minTemperature: -20,
+        date: DateTime(2024, 4, 24, 16, 46, 08),
+      );
 
       when(weatherRepository.fetchWeather(any))
           .thenAnswer((realInvocation) => sampleWeatherData);
@@ -183,8 +183,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            weatherRepositoryProvider.overrideWith(
-              (ref) => weatherRepository,
+            weatherRepositoryProvider.overrideWithValue(
+              weatherRepository,
             ),
           ],
           child: const MaterialApp(
@@ -213,8 +213,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            weatherRepositoryProvider.overrideWith(
-              (ref) => weatherRepository,
+            weatherRepositoryProvider.overrideWithValue(
+              weatherRepository,
             ),
           ],
           child: const MaterialApp(
@@ -244,8 +244,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            weatherRepositoryProvider.overrideWith(
-              (ref) => weatherRepository,
+            weatherRepositoryProvider.overrideWithValue(
+              weatherRepository,
             ),
           ],
           child: const MaterialApp(
