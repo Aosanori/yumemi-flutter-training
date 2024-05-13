@@ -71,7 +71,7 @@ void main() {
       );
 
       when(weatherRepository.fetchWeather(any))
-          .thenAnswer((realInvocation) => sampleWeatherData);
+          .thenAnswer((_) => sampleWeatherData);
       await tester.tap(find.text('reload'));
       await tester.pump();
 
@@ -113,7 +113,7 @@ void main() {
       );
 
       when(weatherRepository.fetchWeather(any))
-          .thenAnswer((realInvocation) => sampleWeatherData);
+          .thenAnswer((_) => sampleWeatherData);
       await tester.tap(find.text('reload'));
       await tester.pump();
 
@@ -155,7 +155,7 @@ void main() {
       );
 
       when(weatherRepository.fetchWeather(any))
-          .thenAnswer((realInvocation) => sampleWeatherData);
+          .thenAnswer((_) => sampleWeatherData);
       await tester.tap(find.text('reload'));
       await tester.pump();
 
