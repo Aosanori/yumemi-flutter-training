@@ -46,7 +46,7 @@ void main() {
         findsOneWidget,
       );
     });
-    testWidgets('天気予報画面に晴れの画像が表示される', (tester) async {
+    testWidgets('「Reload」ボタンを押したとき、天気予報画面に晴れの画像が表示される', (tester) async {
       TestWidgetsFlutterBinding.ensureInitialized();
       await tester.binding.setSurfaceSize(const Size(430, 932));
       final weatherRepository = MockWeatherRepository();
@@ -90,7 +90,7 @@ void main() {
       );
     });
 
-    testWidgets('天気予報画面に曇りの画像が表示される', (tester) async {
+    testWidgets('「Reload」ボタンを押したとき天気予報画面に曇りの画像が表示される', (tester) async {
       TestWidgetsFlutterBinding.ensureInitialized();
       await tester.binding.setSurfaceSize(const Size(430, 932));
       final weatherRepository = MockWeatherRepository();
@@ -134,7 +134,7 @@ void main() {
       );
     });
 
-    testWidgets('天気予報画面に雨の画像が表示される', (tester) async {
+    testWidgets('「Reload」ボタンを押したとき、天気予報画面に雨の画像が表示される', (tester) async {
       TestWidgetsFlutterBinding.ensureInitialized();
       await tester.binding.setSurfaceSize(const Size(430, 932));
       final weatherRepository = MockWeatherRepository();
