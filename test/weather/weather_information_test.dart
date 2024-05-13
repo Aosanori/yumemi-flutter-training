@@ -180,7 +180,9 @@ void main() {
   });
 
   group('weatherPageの異常系テスト', () {
-    testWidgets('YumemiWeatherError.unknown', (tester) async {
+    testWidgets(
+        '「Reload」ボタンを押し、YumemiWeatherError.unknownが発生した場合、'
+        'エラー内容をAlertDialogで表示する', (tester) async {
       TestWidgetsFlutterBinding.ensureInitialized();
       await tester.binding.setSurfaceSize(const Size(430, 932));
       final weatherRepository = MockWeatherRepository();
@@ -208,7 +210,9 @@ void main() {
       );
     });
 
-    testWidgets('YumemiWeatherError.invalidParameter', (tester) async {
+    testWidgets(
+        '「Reload」ボタンを押し、YumemiWeatherError.invalidParameterが発生した場合、'
+        'エラー内容をAlertDialogで表示する', (tester) async {
       TestWidgetsFlutterBinding.ensureInitialized();
       await tester.binding.setSurfaceSize(const Size(430, 932));
       final weatherRepository = MockWeatherRepository();
@@ -237,7 +241,9 @@ void main() {
       );
     });
 
-    testWidgets('YumemiWeatherRepositoryException', (tester) async {
+    testWidgets(
+        '「Reload」ボタンを押し、YumemiWeatherRepositoryExceptionが発生した場合、'
+        'エラー内容をAlertDialogで表示する', (tester) async {
       TestWidgetsFlutterBinding.ensureInitialized();
       await tester.binding.setSurfaceSize(const Size(430, 932));
       final weatherRepository = MockWeatherRepository();
