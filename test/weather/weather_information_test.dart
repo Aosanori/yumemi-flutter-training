@@ -63,14 +63,12 @@ void main() {
         ),
       );
 
-      final sampleWeatherData = WeatherData.fromJson(
-        {
-          'weather_condition': 'sunny',
-          'max_temperature': 26,
-          'min_temperature': -20,
-          'date': '2024-04-24T16:46:08+09:00',
-        },
-      );
+      final sampleWeatherData = WeatherData(
+          weatherCondition: WeatherCondition.sunny,
+          maxTemperature: 26,
+          minTemperature: -20,
+          date: DateTime(2024, 4, 24, 16, 46, 08),
+          );
 
       when(weatherRepository.fetchWeather(any))
           .thenAnswer((realInvocation) => sampleWeatherData);
@@ -107,14 +105,12 @@ void main() {
         ),
       );
 
-      final sampleWeatherData = WeatherData.fromJson(
-        {
-          'weather_condition': 'cloudy',
-          'max_temperature': 20,
-          'min_temperature': -20,
-          'date': '2024-04-24T16:46:08+09:00',
-        },
-      );
+      final sampleWeatherData = WeatherData(
+          weatherCondition: WeatherCondition.cloudy,
+          maxTemperature: 20,
+          minTemperature: -20,
+          date: DateTime(2024, 4, 24, 16, 46, 08),
+          );
 
       when(weatherRepository.fetchWeather(any))
           .thenAnswer((realInvocation) => sampleWeatherData);
@@ -151,14 +147,12 @@ void main() {
         ),
       );
 
-      final sampleWeatherData = WeatherData.fromJson(
-        {
-          'weather_condition': 'rainy',
-          'max_temperature': 16,
-          'min_temperature': -20,
-          'date': '2024-04-24T16:46:08+09:00',
-        },
-      );
+      final sampleWeatherData = WeatherData(
+          weatherCondition: WeatherCondition.rainy,
+          maxTemperature: 16,
+          minTemperature: -20,
+          date: DateTime(2024, 4, 24, 16, 46, 08),
+          );
 
       when(weatherRepository.fetchWeather(any))
           .thenAnswer((realInvocation) => sampleWeatherData);
