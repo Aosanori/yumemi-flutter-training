@@ -42,7 +42,7 @@ void main() {
       expect(find.text('reload'), findsOneWidget);
       expect(find.text('** ℃'), findsWidgets);
       expect(
-        find.byWidgetPredicate((widget) => widget is Placeholder),
+        find.byType(Placeholder),
         findsOneWidget,
       );
     });
