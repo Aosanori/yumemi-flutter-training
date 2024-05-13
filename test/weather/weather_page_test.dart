@@ -70,8 +70,7 @@ void main() {
         date: DateTime(2024, 4, 24, 16, 46, 08),
       );
 
-      when(weatherRepository.fetchWeather(any))
-          .thenAnswer((_) => sampleWeatherData);
+      when(weatherRepository.fetchWeather(any)).thenReturn(sampleWeatherData);
       await tester.tap(find.text('reload'));
       await tester.pump();
 
@@ -112,8 +111,7 @@ void main() {
         date: DateTime(2024, 4, 24, 16, 46, 08),
       );
 
-      when(weatherRepository.fetchWeather(any))
-          .thenAnswer((_) => sampleWeatherData);
+      when(weatherRepository.fetchWeather(any)).thenReturn(sampleWeatherData);
       await tester.tap(find.text('reload'));
       await tester.pump();
 
@@ -154,8 +152,7 @@ void main() {
         date: DateTime(2024, 4, 24, 16, 46, 08),
       );
 
-      when(weatherRepository.fetchWeather(any))
-          .thenAnswer((_) => sampleWeatherData);
+      when(weatherRepository.fetchWeather(any)).thenReturn(sampleWeatherData);
       await tester.tap(find.text('reload'));
       await tester.pump();
 
