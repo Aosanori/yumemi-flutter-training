@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_training/exceptions/yumemi_weather_exception.dart';
 import 'package:flutter_training/weather/yumemi_weather_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,12 +17,12 @@ class WeatherDataSource {
   WeatherDataSource(this._yumemiWeatherService);
   final YumemiWeather _yumemiWeatherService;
 
-  String fetchWeather(String payload) {
+  Future<String> fetchWeather(String payload) async {
     try {
       SimpleLogger()
           .info('Getting weather data from Yumemi Weather Service...');
       final weatherData =
-          _yumemiWeatherService.syncFetchWeather(payload);
+          await compute(_yumemiWeatherService.syncFetchWeather, payload);
       SimpleLogger()
           .info('Complete to get weather data from Yumemi Weather Service!');
       return weatherData;

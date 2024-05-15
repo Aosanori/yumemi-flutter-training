@@ -19,11 +19,14 @@ class WeatherRepository {
   WeatherRepository(this._weatherDataSource);
   final WeatherDataSource _weatherDataSource;
 
-  WeatherData fetchWeather(WeatherDataRequest weatherDataRequest) {
+  Future<WeatherData> fetchWeather(
+    WeatherDataRequest weatherDataRequest,
+  ) async {
     final payload = json.encode(weatherDataRequest.toJson());
     final weatherString = _weatherDataSource.fetchWeather(payload);
     try {
-      final weatherJson = json.decode(weatherString) as Map<String, dynamic>;
+      final weatherJson =
+          json.decode(await weatherString) as Map<String, dynamic>;
       final weatherData = WeatherData.fromJson(weatherJson);
       return weatherData;
     } on CheckedFromJsonException catch (_) {
