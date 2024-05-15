@@ -14,21 +14,6 @@ import 'weather_repository_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<WeatherDataSource>()])
 void main() {
-  late WeatherDataSource weatherDataSource;
-  late ProviderContainer container;
-  late WeatherRepository weatherRepository;
-
-  setUp(() {
-    weatherDataSource = MockWeatherDataSource();
-    container = ProviderContainer(
-      overrides: [
-        weatherDataSourceProvider.overrideWithValue(weatherDataSource),
-      ],
-    );
-    addTearDown(container.dispose);
-    weatherRepository = container.read(weatherRepositoryProvider);
-  });
-
   /// weatherDataSourceではjsonで入出力する形となっております。
   /// そこでweatherDataSourceとweatherRepositoryへの入力を揃えるために
   /// weatherDataRequestとweatherDataPayloadをそれぞれ一つのMapから生成しました。
@@ -41,9 +26,18 @@ void main() {
   final weatherDataPayload = json.encode(payload);
 
   group('weatherRepositoryの正常系テスト', () {
-    test('When WeatherDataSource returns sunny.', () {
+    test('When WeatherDataSource returns sunny.', () async {
+      // Arrange
+      final weatherDataSource = MockWeatherDataSource();
+      final container = ProviderContainer(
+        overrides: [
+          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
+        ],
+      );
+      addTearDown(container.dispose);
+      final weatherRepository = container.read(weatherRepositoryProvider);
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) => json.encode(
+        (realInvocation) async => json.encode(
           {
             'weather_condition': 'sunny',
             'max_temperature': 33,
@@ -52,7 +46,11 @@ void main() {
           },
         ),
       );
-      final weather = weatherRepository.fetchWeather(weatherDataRequest);
+
+      // Act
+      final weather = await weatherRepository.fetchWeather(weatherDataRequest);
+
+      // Assert
       expect(
         weather,
         WeatherData(
@@ -64,9 +62,18 @@ void main() {
       );
     });
 
-    test('When WeatherDataSource returns cloudy.', () {
+    test('When WeatherDataSource returns cloudy.', () async {
+      // Arrange
+      final weatherDataSource = MockWeatherDataSource();
+      final container = ProviderContainer(
+        overrides: [
+          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
+        ],
+      );
+      addTearDown(container.dispose);
+      final weatherRepository = container.read(weatherRepositoryProvider);
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) => json.encode(
+        (realInvocation) async => json.encode(
           {
             'weather_condition': 'cloudy',
             'max_temperature': 25,
@@ -75,7 +82,11 @@ void main() {
           },
         ),
       );
-      final weather = weatherRepository.fetchWeather(weatherDataRequest);
+
+      // Act
+      final weather = await weatherRepository.fetchWeather(weatherDataRequest);
+
+      // Assert
       expect(
         weather,
         WeatherData(
@@ -87,9 +98,18 @@ void main() {
       );
     });
 
-    test('When WeatherDataSource returns rainy.', () {
+    test('When WeatherDataSource returns rainy.', () async {
+      // Arrange
+      final weatherDataSource = MockWeatherDataSource();
+      final container = ProviderContainer(
+        overrides: [
+          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
+        ],
+      );
+      addTearDown(container.dispose);
+      final weatherRepository = container.read(weatherRepositoryProvider);
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) => json.encode(
+        (realInvocation) async => json.encode(
           {
             'weather_condition': 'rainy',
             'max_temperature': 25,
@@ -98,7 +118,11 @@ void main() {
           },
         ),
       );
-      final weather = weatherRepository.fetchWeather(weatherDataRequest);
+
+      // Act
+      final weather = await weatherRepository.fetchWeather(weatherDataRequest);
+
+      // Assert
       expect(
         weather,
         WeatherData(
@@ -115,9 +139,18 @@ void main() {
     test(
         'Throws YumemiWeatherRepositoryException '
         'When WeatherDataSource returns snowy. '
-        '(including invalid value)', () {
+        '(including invalid value)', () async {
+      // Arrange
+      final weatherDataSource = MockWeatherDataSource();
+      final container = ProviderContainer(
+        overrides: [
+          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
+        ],
+      );
+      addTearDown(container.dispose);
+      final weatherRepository = container.read(weatherRepositoryProvider);
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) => json.encode(
+        (realInvocation) async => json.encode(
           {
             'weather_condition': 'snowy',
             'max_temperature': 1,
@@ -126,8 +159,10 @@ void main() {
           },
         ),
       );
+
+      // Act & Assert
       expect(
-        () => weatherRepository.fetchWeather(weatherDataRequest),
+        () async => weatherRepository.fetchWeather(weatherDataRequest),
         throwsA(
           isA<YumemiWeatherRepositoryException>(),
         ),
@@ -136,16 +171,27 @@ void main() {
 
     test(
         'Throws YumemiWeatherRepositoryException '
-        'When the data is not appropriate format.', () {
+        'When the data is not appropriate format.', () async {
+      // Arrange
+      final weatherDataSource = MockWeatherDataSource();
+      final container = ProviderContainer(
+        overrides: [
+          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
+        ],
+      );
+      addTearDown(container.dispose);
+      final weatherRepository = container.read(weatherRepositoryProvider);
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) => json.encode(
+        (realInvocation) async => json.encode(
           {
             'weather_condition': 'rainy',
           },
         ),
       );
+
+      // Act & Assert
       expect(
-        () => weatherRepository.fetchWeather(weatherDataRequest),
+        () async => weatherRepository.fetchWeather(weatherDataRequest),
         throwsA(
           isA<YumemiWeatherRepositoryException>(),
         ),
