@@ -11,25 +11,19 @@ import 'weather_page_view_model_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 void main() {
-  late WeatherRepository weatherRepository;
-  late ProviderContainer container;
-
-  setUp(() {
-    weatherRepository = MockWeatherRepository();
-    container = ProviderContainer(
-      overrides: [
-        weatherRepositoryProvider.overrideWithValue(weatherRepository),
-      ],
-    );
-    addTearDown(container.dispose);
-  });
-
   final weatherDataRequest = WeatherDataRequest(
     area: 'tokyo',
     date: DateTime.now(),
   );
 
   test('When WeatherRepository returns WeatherCondition.sunny.', () async {
+    final weatherRepository = MockWeatherRepository();
+    final container = ProviderContainer(
+      overrides: [
+        weatherRepositoryProvider.overrideWithValue(weatherRepository),
+      ],
+    );
+    addTearDown(container.dispose);
     final sampleWeatherData = WeatherData.fromJson(
       {
         'weather_condition': 'sunny',
