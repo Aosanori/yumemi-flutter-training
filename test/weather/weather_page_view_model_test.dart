@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/exceptions/yumemi_weather_repository_exception_error.dart';
@@ -15,22 +13,6 @@ import 'weather_page_view_model_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 void main() {
-  late WeatherRepository weatherRepository;
-  late ProviderContainer container;
-  late WeatherPageViewModel weatherPageViewModel;
-
-  setUp(() {
-    weatherRepository = MockWeatherRepository();
-    container = ProviderContainer(
-      overrides: [
-        weatherRepositoryProvider.overrideWithValue(weatherRepository),
-      ],
-    );
-    addTearDown(container.dispose);
-    weatherPageViewModel =
-        container.read(weatherPageViewModelProvider.notifier);
-  });
-
   final weatherDataRequest = WeatherDataRequest(
     area: 'tokyo',
     date: DateTime.now(),
@@ -38,10 +20,37 @@ void main() {
 
   group('weatherPageViewModelの正常系テスト', () {
     test('initialize', () {
-      expect(weatherPageViewModel.state, const AsyncData<WeatherData?>(null));
+      // Arrange
+      final weatherRepository = MockWeatherRepository();
+      final container = ProviderContainer(
+        overrides: [
+          weatherRepositoryProvider.overrideWithValue(weatherRepository),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      // Act
+      container.listen(
+        weatherPageViewModelProvider,
+        (_, __) {
+          // Assert
+          expect(
+            container.read(weatherPageViewModelProvider),
+            const AsyncData<WeatherData?>(null),
+          );
+        },
+      );
     });
 
     test('When WeatherRepository returns WeatherCondition.sunny.', () async {
+      // Arrange
+      final weatherRepository = MockWeatherRepository();
+      final container = ProviderContainer(
+        overrides: [
+          weatherRepositoryProvider.overrideWithValue(weatherRepository),
+        ],
+      );
+      addTearDown(container.dispose);
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'sunny',
@@ -51,22 +60,31 @@ void main() {
         },
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenAnswer((realInvocation) => sampleWeatherData);
-      unawaited(
-        weatherPageViewModel.fetchWeather(weatherDataRequest).then(
-          (value) {
-            expect(
-              weatherPageViewModel.state,
-              AsyncData<WeatherData?>(
-                sampleWeatherData,
-              ),
-            );
-          },
+          .thenAnswer((realInvocation) async => sampleWeatherData);
+
+      // Act
+      await container
+          .read(weatherPageViewModelProvider.notifier)
+          .fetchWeather(weatherDataRequest);
+
+      // Assert
+      expect(
+        container.read(weatherPageViewModelProvider),
+        AsyncData<WeatherData?>(
+          sampleWeatherData,
         ),
       );
     });
 
     test('When WeatherRepository returns WeatherCondition.cloudy.', () async {
+      // Arrange
+      final weatherRepository = MockWeatherRepository();
+      final container = ProviderContainer(
+        overrides: [
+          weatherRepositoryProvider.overrideWithValue(weatherRepository),
+        ],
+      );
+      addTearDown(container.dispose);
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'cloudy',
@@ -76,92 +94,148 @@ void main() {
         },
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenAnswer((realInvocation) => sampleWeatherData);
-      unawaited(
-        weatherPageViewModel.fetchWeather(weatherDataRequest).then(
-          (value) {
-            expect(
-              weatherPageViewModel.state,
-              AsyncData<WeatherData?>(
-                sampleWeatherData,
-              ),
-            );
-          },
+          .thenAnswer((realInvocation) async => sampleWeatherData);
+
+      // Act
+      await container
+          .read(weatherPageViewModelProvider.notifier)
+          .fetchWeather(weatherDataRequest);
+
+      // Assert
+      expect(
+        container.read(weatherPageViewModelProvider),
+        AsyncData<WeatherData?>(
+          sampleWeatherData,
         ),
       );
     });
 
     test('When WeatherRepository returns WeatherCondition.rainy.', () async {
+      // Arrange
+      final weatherRepository = MockWeatherRepository();
+      final container = ProviderContainer(
+        overrides: [
+          weatherRepositoryProvider.overrideWithValue(weatherRepository),
+        ],
+      );
+      addTearDown(container.dispose);
       final sampleWeatherData = WeatherData.fromJson(
         {
-          'weather_condition': 'cloudy',
+          'weather_condition': 'rainy',
           'max_temperature': 26,
           'min_temperature': -20,
           'date': '2024-04-24T16:46:08+09:00',
         },
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenAnswer((realInvocation) => sampleWeatherData);
-      unawaited(
-        weatherPageViewModel.fetchWeather(weatherDataRequest).then(
-          (value) {
-            expect(
-              weatherPageViewModel.state,
-              AsyncData<WeatherData?>(
-                sampleWeatherData,
-              ),
-            );
-          },
+          .thenAnswer((realInvocation) async => sampleWeatherData);
+
+      // Act
+      await container
+          .read(weatherPageViewModelProvider.notifier)
+          .fetchWeather(weatherDataRequest);
+
+      // Assert
+      expect(
+        container.read(weatherPageViewModelProvider),
+        AsyncData<WeatherData?>(
+          sampleWeatherData,
         ),
       );
     });
   });
+
   group('weatherPageViewModelの異常系テスト', () {
     test(
         'Set AsyncError(YumemiWeatherError.invalidParameter) '
         'when WeatherRepository throws YumemiWeatherError.invalidParameter.',
         () async {
+      // Arrange
+      final weatherRepository = MockWeatherRepository();
+      final container = ProviderContainer(
+        overrides: [
+          weatherRepositoryProvider.overrideWithValue(weatherRepository),
+        ],
+      );
+      addTearDown(container.dispose);
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.invalidParameter);
-      unawaited(
-        weatherPageViewModel.fetchWeather(weatherDataRequest).then((value) {
-          expect(
-            weatherPageViewModel.state,
-            isA<AsyncError<YumemiWeatherError>>(),
-          );
-        }),
-      );
-    });
 
-    test(
-        'Set AsyncError(YumemiWeatherError.unknown) '
-        'when WeatherRepository throws YumemiWeatherError.unknown.', () async {
-      when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenThrow(YumemiWeatherError.unknown);
-      unawaited(
-        weatherPageViewModel.fetchWeather(weatherDataRequest).then((value) {
-          expect(
-            weatherPageViewModel.state,
-            isA<AsyncError<YumemiWeatherError>>(),
-          );
-        }),
-      );
-    });
+      // Act
+      await container
+          .read(weatherPageViewModelProvider.notifier)
+          .fetchWeather(weatherDataRequest);
 
-    test(
-        'Set AsyncError(YumemiWeatherRepositoryException) '
-        'when WeatherRepository throws YumemiWeatherRepositoryException.',
-        () async {
-      when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenThrow(YumemiWeatherRepositoryException);
-      unawaited(
-        weatherPageViewModel.fetchWeather(weatherDataRequest).then((value) {
-          expect(
-            weatherPageViewModel.state,
-            isA<AsyncError<YumemiWeatherRepositoryException>>(),
-          );
-        }),
+      // Assert
+      expect(
+        container.read(weatherPageViewModelProvider),
+        isA<AsyncError<WeatherData?>>(),
+      );
+      expect(
+        container.read(weatherPageViewModelProvider).error,
+        YumemiWeatherError.invalidParameter,
       );
     });
+  });
+
+  test(
+      'Set AsyncError(YumemiWeatherError.unknown) '
+      'when WeatherRepository throws YumemiWeatherError.unknown.', () async {
+    // Arrange
+    final weatherRepository = MockWeatherRepository();
+    final container = ProviderContainer(
+      overrides: [
+        weatherRepositoryProvider.overrideWithValue(weatherRepository),
+      ],
+    );
+    addTearDown(container.dispose);
+    when(weatherRepository.fetchWeather(weatherDataRequest))
+        .thenThrow(YumemiWeatherError.unknown);
+
+    // Act
+    await container
+        .read(weatherPageViewModelProvider.notifier)
+        .fetchWeather(weatherDataRequest);
+
+    // Assert
+    expect(
+      container.read(weatherPageViewModelProvider),
+      isA<AsyncError<WeatherData?>>(),
+    );
+    expect(
+      container.read(weatherPageViewModelProvider).error,
+      YumemiWeatherError.unknown,
+    );
+  });
+
+  test(
+      'Set AsyncError(YumemiWeatherRepositoryException) '
+      'when WeatherRepository throws YumemiWeatherRepositoryException.',
+      () async {
+    // Arrange
+    final weatherRepository = MockWeatherRepository();
+    final container = ProviderContainer(
+      overrides: [
+        weatherRepositoryProvider.overrideWithValue(weatherRepository),
+      ],
+    );
+    addTearDown(container.dispose);
+    when(weatherRepository.fetchWeather(weatherDataRequest))
+        .thenThrow(YumemiWeatherRepositoryException);
+
+    // Act
+    await container
+        .read(weatherPageViewModelProvider.notifier)
+        .fetchWeather(weatherDataRequest);
+
+    // Assert
+    expect(
+      container.read(weatherPageViewModelProvider),
+      isA<AsyncError<WeatherData?>>(),
+    );
+    expect(
+      container.read(weatherPageViewModelProvider).error,
+      YumemiWeatherRepositoryException,
+    );
   });
 }
