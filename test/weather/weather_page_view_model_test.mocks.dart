@@ -3,8 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i4;
+
 import 'package:flutter_training/weather/weather_data.dart' as _i2;
-import 'package:flutter_training/weather/weather_data_request.dart' as _i4;
+import 'package:flutter_training/weather/weather_data_request.dart' as _i5;
 import 'package:flutter_training/weather/weather_repository.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -36,25 +38,27 @@ class _FakeWeatherData_0 extends _i1.SmartFake implements _i2.WeatherData {
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherRepository extends _i1.Mock implements _i3.WeatherRepository {
   @override
-  _i2.WeatherData fetchWeather(_i4.WeatherDataRequest? weatherDataRequest) =>
+  _i4.Future<_i2.WeatherData> fetchWeather(
+          _i5.WeatherDataRequest? weatherDataRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchWeather,
           [weatherDataRequest],
         ),
-        returnValue: _FakeWeatherData_0(
+        returnValue: _i4.Future<_i2.WeatherData>.value(_FakeWeatherData_0(
           this,
           Invocation.method(
             #fetchWeather,
             [weatherDataRequest],
           ),
-        ),
-        returnValueForMissingStub: _FakeWeatherData_0(
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.WeatherData>.value(_FakeWeatherData_0(
           this,
           Invocation.method(
             #fetchWeather,
             [weatherDataRequest],
           ),
-        ),
-      ) as _i2.WeatherData);
+        )),
+      ) as _i4.Future<_i2.WeatherData>);
 }

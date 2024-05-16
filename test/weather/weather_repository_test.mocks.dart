@@ -3,9 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i3;
+
 import 'package:flutter_training/weather/weather_data_source.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i3;
+import 'package:mockito/src/dummies.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -25,24 +27,25 @@ import 'package:mockito/src/dummies.dart' as _i3;
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherDataSource extends _i1.Mock implements _i2.WeatherDataSource {
   @override
-  String fetchWeather(String? payload) => (super.noSuchMethod(
+  _i3.Future<String> fetchWeather(String? payload) => (super.noSuchMethod(
         Invocation.method(
           #fetchWeather,
           [payload],
         ),
-        returnValue: _i3.dummyValue<String>(
+        returnValue: _i3.Future<String>.value(_i4.dummyValue<String>(
           this,
           Invocation.method(
             #fetchWeather,
             [payload],
           ),
-        ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
+        )),
+        returnValueForMissingStub:
+            _i3.Future<String>.value(_i4.dummyValue<String>(
           this,
           Invocation.method(
             #fetchWeather,
             [payload],
           ),
-        ),
-      ) as String);
+        )),
+      ) as _i3.Future<String>);
 }

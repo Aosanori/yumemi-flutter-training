@@ -11,23 +11,20 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 import 'weather_data_source_test.mocks.dart';
 
+(MockYumemiWeather, WeatherDataSource) providerSetup() {
+  final yumemiWeatherService = MockYumemiWeather();
+  final container = ProviderContainer(
+    overrides: [
+      yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
+    ],
+  );
+  addTearDown(container.dispose);
+  final weatherDataSource = container.read(weatherDataSourceProvider);
+  return (yumemiWeatherService, weatherDataSource);
+}
+
 @GenerateNiceMocks([MockSpec<YumemiWeather>()])
 void main() {
-  late YumemiWeather yumemiWeatherService;
-  late ProviderContainer container;
-  late WeatherDataSource weatherDataSource;
-
-  setUp(() {
-    yumemiWeatherService = MockYumemiWeather();
-    container = ProviderContainer(
-      overrides: [
-        yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
-      ],
-    );
-    addTearDown(container.dispose);
-    weatherDataSource = container.read(weatherDataSourceProvider);
-  });
-
   final payload = json.encode(
     {
       'area': 'tokyo',
@@ -36,7 +33,10 @@ void main() {
   );
 
   group('weatherDataSourceの正常系テスト', () {
-    test('When YumemiWeatherService returns sunny.', () {
+    test('When YumemiWeatherService returns sunny.', () async {
+      // Arrange
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
+
       final response = json.encode(
         {
           'weather_condition': 'sunny',
@@ -45,12 +45,18 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.fetchWeather(payload))
-          .thenAnswer((_) => response);
-      final weatherString = weatherDataSource.fetchWeather(payload);
+      when(yumemiWeatherService.syncFetchWeather(payload)).thenReturn(response);
+
+      // Act
+      final weatherString = await weatherDataSource.fetchWeather(payload);
+
+      // Assert
       expect(weatherString, response);
     });
-    test('When YumemiWeatherService returns cloudy.', () {
+    test('When YumemiWeatherService returns cloudy.', () async {
+      // Arrange
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
+
       final response = json.encode(
         {
           'weather_condition': 'cloudy',
@@ -59,12 +65,18 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.fetchWeather(payload))
-          .thenAnswer((_) => response);
-      final weatherString = weatherDataSource.fetchWeather(payload);
+      when(yumemiWeatherService.syncFetchWeather(payload)).thenReturn(response);
+
+      // Act
+      final weatherString = await weatherDataSource.fetchWeather(payload);
+
+      // Assert
       expect(weatherString, response);
     });
-    test('When YumemiWeatherService returns rainy.', () {
+    test('When YumemiWeatherService returns rainy.', () async {
+      // Arrange
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
+
       final response = json.encode(
         {
           'weather_condition': 'rainy',
@@ -73,9 +85,12 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.fetchWeather(payload))
-          .thenAnswer((_) => response);
-      final weatherString = weatherDataSource.fetchWeather(payload);
+      when(yumemiWeatherService.syncFetchWeather(payload)).thenReturn(response);
+
+      // Act
+      final weatherString = await weatherDataSource.fetchWeather(payload);
+
+      // Assert
       expect(weatherString, response);
     });
   });
@@ -85,11 +100,15 @@ void main() {
         'Throws YumemiWeatherException '
         'with message of "Input parameters are wrong." '
         'when YumemiWeatherError.invalidParameter is thrown.', () {
-      when(yumemiWeatherService.fetchWeather(payload))
+      // Arrange
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
+
+      when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
+      // Act & Assert
       expect(
-        () => weatherDataSource.fetchWeather(payload),
+        () async => weatherDataSource.fetchWeather(payload),
         throwsA(
           predicate(
             (e) =>
@@ -104,10 +123,15 @@ void main() {
         'Throws YumemiWeatherException '
         'with message of "Failed to load data" '
         'when YumemiWeatherError.unknown is thrown.', () {
-      when(yumemiWeatherService.fetchWeather(payload))
+      // Arrange
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
+
+      when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.unknown);
+
+      // Act & Assert
       expect(
-        () => weatherDataSource.fetchWeather(payload),
+        () async => weatherDataSource.fetchWeather(payload),
         throwsA(
           predicate(
             (e) =>
