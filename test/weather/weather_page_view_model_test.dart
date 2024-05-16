@@ -54,7 +54,7 @@ void main() {
         },
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenAnswer((realInvocation) async => sampleWeatherData);
+          .thenAnswer((_) async => sampleWeatherData);
 
       // Act
       await container
@@ -83,7 +83,7 @@ void main() {
         },
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenAnswer((realInvocation) async => sampleWeatherData);
+          .thenAnswer((_) async => sampleWeatherData);
 
       // Act
       await container
@@ -112,7 +112,7 @@ void main() {
         },
       );
       when(weatherRepository.fetchWeather(weatherDataRequest))
-          .thenAnswer((realInvocation) async => sampleWeatherData);
+          .thenAnswer((_) async => sampleWeatherData);
 
       // Act
       await container

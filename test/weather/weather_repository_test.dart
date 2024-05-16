@@ -43,7 +43,7 @@ void main() {
       final (weatherDataSource, weatherRepository) = setup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) async => json.encode(
+        (_) async => json.encode(
           {
             'weather_condition': 'sunny',
             'max_temperature': 33,
@@ -73,7 +73,7 @@ void main() {
       final (weatherDataSource, weatherRepository) = setup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) async => json.encode(
+        (_) async => json.encode(
           {
             'weather_condition': 'cloudy',
             'max_temperature': 25,
@@ -103,7 +103,7 @@ void main() {
       final (weatherDataSource, weatherRepository) = setup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) async => json.encode(
+        (_) async => json.encode(
           {
             'weather_condition': 'rainy',
             'max_temperature': 25,
@@ -138,7 +138,7 @@ void main() {
       final (weatherDataSource, weatherRepository) = setup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) async => json.encode(
+        (_) async => json.encode(
           {
             'weather_condition': 'snowy',
             'max_temperature': 1,
@@ -164,7 +164,7 @@ void main() {
       final (weatherDataSource, weatherRepository) = setup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
-        (realInvocation) async => json.encode(
+        (_) async => json.encode(
           {
             'weather_condition': 'rainy',
           },
