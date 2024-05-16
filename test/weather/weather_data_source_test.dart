@@ -11,7 +11,7 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 import 'weather_data_source_test.mocks.dart';
 
-(MockYumemiWeather, WeatherDataSource) setup() {
+(MockYumemiWeather, WeatherDataSource) providerSetup() {
   final yumemiWeatherService = MockYumemiWeather();
   final container = ProviderContainer(
     overrides: [
@@ -35,7 +35,7 @@ void main() {
   group('weatherDataSourceの正常系テスト', () {
     test('When YumemiWeatherService returns sunny.', () async {
       // Arrange
-      final (yumemiWeatherService, weatherDataSource) = setup();
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
 
       final response = json.encode(
         {
@@ -55,7 +55,7 @@ void main() {
     });
     test('When YumemiWeatherService returns cloudy.', () async {
       // Arrange
-      final (yumemiWeatherService, weatherDataSource) = setup();
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
 
       final response = json.encode(
         {
@@ -75,7 +75,7 @@ void main() {
     });
     test('When YumemiWeatherService returns rainy.', () async {
       // Arrange
-      final (yumemiWeatherService, weatherDataSource) = setup();
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
 
       final response = json.encode(
         {
@@ -101,7 +101,7 @@ void main() {
         'with message of "Input parameters are wrong." '
         'when YumemiWeatherError.invalidParameter is thrown.', () {
       // Arrange
-      final (yumemiWeatherService, weatherDataSource) = setup();
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
 
       when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.invalidParameter);
@@ -124,7 +124,7 @@ void main() {
         'with message of "Failed to load data" '
         'when YumemiWeatherError.unknown is thrown.', () {
       // Arrange
-      final (yumemiWeatherService, weatherDataSource) = setup();
+      final (yumemiWeatherService, weatherDataSource) = providerSetup();
 
       when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.unknown);

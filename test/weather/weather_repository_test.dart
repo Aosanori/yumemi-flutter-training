@@ -12,7 +12,7 @@ import 'package:mockito/mockito.dart';
 
 import 'weather_repository_test.mocks.dart';
 
-(MockWeatherDataSource, WeatherRepository) setup() {
+(MockWeatherDataSource, WeatherRepository) providerSetup() {
   final weatherDataSource = MockWeatherDataSource();
   final container = ProviderContainer(
     overrides: [
@@ -40,7 +40,7 @@ void main() {
   group('weatherRepositoryの正常系テスト', () {
     test('When WeatherDataSource returns sunny.', () async {
       // Arrange
-      final (weatherDataSource, weatherRepository) = setup();
+      final (weatherDataSource, weatherRepository) = providerSetup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (_) async => json.encode(
@@ -70,7 +70,7 @@ void main() {
 
     test('When WeatherDataSource returns cloudy.', () async {
       // Arrange
-      final (weatherDataSource, weatherRepository) = setup();
+      final (weatherDataSource, weatherRepository) = providerSetup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (_) async => json.encode(
@@ -100,7 +100,7 @@ void main() {
 
     test('When WeatherDataSource returns rainy.', () async {
       // Arrange
-      final (weatherDataSource, weatherRepository) = setup();
+      final (weatherDataSource, weatherRepository) = providerSetup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (_) async => json.encode(
@@ -135,7 +135,7 @@ void main() {
         'When WeatherDataSource returns snowy. '
         '(including invalid value)', () async {
       // Arrange
-      final (weatherDataSource, weatherRepository) = setup();
+      final (weatherDataSource, weatherRepository) = providerSetup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (_) async => json.encode(
@@ -161,7 +161,7 @@ void main() {
         'Throws YumemiWeatherRepositoryException '
         'When the data is not appropriate format.', () async {
       // Arrange
-      final (weatherDataSource, weatherRepository) = setup();
+      final (weatherDataSource, weatherRepository) = providerSetup();
       
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (_) async => json.encode(
