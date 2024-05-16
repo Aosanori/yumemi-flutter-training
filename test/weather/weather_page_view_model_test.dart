@@ -41,6 +41,8 @@ void main() {
     test('When WeatherRepository returns WeatherCondition.sunny.', () async {
       // Arrange
       final (weatherRepository, container) = providerSetup();
+      final subscription =
+          container.listen(weatherPageViewModelProvider, (_, __) {});
 
       final sampleWeatherData = WeatherData.fromJson(
         {
@@ -60,7 +62,7 @@ void main() {
 
       // Assert
       expect(
-        container.read(weatherPageViewModelProvider),
+        subscription.read(),
         AsyncData<WeatherData?>(
           sampleWeatherData,
         ),
@@ -70,6 +72,8 @@ void main() {
     test('When WeatherRepository returns WeatherCondition.cloudy.', () async {
       // Arrange
       final (weatherRepository, container) = providerSetup();
+      final subscription =
+          container.listen(weatherPageViewModelProvider, (_, __) {});
 
       final sampleWeatherData = WeatherData.fromJson(
         {
@@ -89,7 +93,7 @@ void main() {
 
       // Assert
       expect(
-        container.read(weatherPageViewModelProvider),
+        subscription.read(),
         AsyncData<WeatherData?>(
           sampleWeatherData,
         ),
@@ -99,6 +103,8 @@ void main() {
     test('When WeatherRepository returns WeatherCondition.rainy.', () async {
       // Arrange
       final (weatherRepository, container) = providerSetup();
+      final subscription =
+          container.listen(weatherPageViewModelProvider, (_, __) {});
 
       final sampleWeatherData = WeatherData.fromJson(
         {
@@ -118,7 +124,7 @@ void main() {
 
       // Assert
       expect(
-        container.read(weatherPageViewModelProvider),
+        subscription.read(),
         AsyncData<WeatherData?>(
           sampleWeatherData,
         ),
@@ -133,6 +139,8 @@ void main() {
         () async {
       // Arrange
       final (weatherRepository, container) = providerSetup();
+      final subscription =
+          container.listen(weatherPageViewModelProvider, (_, __) {});
 
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.invalidParameter);
@@ -144,11 +152,11 @@ void main() {
 
       // Assert
       expect(
-        container.read(weatherPageViewModelProvider),
+        subscription.read(),
         isA<AsyncError<WeatherData?>>(),
       );
       expect(
-        container.read(weatherPageViewModelProvider).error,
+        subscription.read().error,
         YumemiWeatherError.invalidParameter,
       );
     });
@@ -158,13 +166,9 @@ void main() {
       'Set AsyncError(YumemiWeatherError.unknown) '
       'when WeatherRepository throws YumemiWeatherError.unknown.', () async {
     // Arrange
-    final weatherRepository = MockWeatherRepository();
-    final container = ProviderContainer(
-      overrides: [
-        weatherRepositoryProvider.overrideWithValue(weatherRepository),
-      ],
-    );
-    addTearDown(container.dispose);
+    final (weatherRepository, container) = providerSetup();
+    final subscription =
+        container.listen(weatherPageViewModelProvider, (_, __) {});
     when(weatherRepository.fetchWeather(weatherDataRequest))
         .thenThrow(YumemiWeatherError.unknown);
 
@@ -175,11 +179,11 @@ void main() {
 
     // Assert
     expect(
-      container.read(weatherPageViewModelProvider),
+      subscription.read(),
       isA<AsyncError<WeatherData?>>(),
     );
     expect(
-      container.read(weatherPageViewModelProvider).error,
+      subscription.read().error,
       YumemiWeatherError.unknown,
     );
   });
@@ -189,13 +193,9 @@ void main() {
       'when WeatherRepository throws YumemiWeatherRepositoryException.',
       () async {
     // Arrange
-    final weatherRepository = MockWeatherRepository();
-    final container = ProviderContainer(
-      overrides: [
-        weatherRepositoryProvider.overrideWithValue(weatherRepository),
-      ],
-    );
-    addTearDown(container.dispose);
+    final (weatherRepository, container) = providerSetup();
+    final subscription =
+        container.listen(weatherPageViewModelProvider, (_, __) {});
     when(weatherRepository.fetchWeather(weatherDataRequest))
         .thenThrow(YumemiWeatherRepositoryException);
 
@@ -206,11 +206,11 @@ void main() {
 
     // Assert
     expect(
-      container.read(weatherPageViewModelProvider),
+      subscription.read(),
       isA<AsyncError<WeatherData?>>(),
     );
     expect(
-      container.read(weatherPageViewModelProvider).error,
+      subscription.read().error,
       YumemiWeatherRepositoryException,
     );
   });
