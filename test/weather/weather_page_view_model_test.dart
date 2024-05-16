@@ -11,6 +11,17 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 import 'weather_page_view_model_test.mocks.dart';
 
+(MockWeatherRepository, ProviderContainer) setup() {
+  final weatherRepository = MockWeatherRepository();
+  final container = ProviderContainer(
+    overrides: [
+      weatherRepositoryProvider.overrideWithValue(weatherRepository),
+    ],
+  );
+  addTearDown(container.dispose);
+  return (weatherRepository, container);
+}
+
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 void main() {
   final weatherDataRequest = WeatherDataRequest(
@@ -21,14 +32,8 @@ void main() {
   group('weatherPageViewModelの正常系テスト', () {
     test('initialize', () {
       // Arrange
-      final weatherRepository = MockWeatherRepository();
-      final container = ProviderContainer(
-        overrides: [
-          weatherRepositoryProvider.overrideWithValue(weatherRepository),
-        ],
-      );
-      addTearDown(container.dispose);
-
+      final (_, container) = setup();
+      
       // Act
       container.listen(
         weatherPageViewModelProvider,
@@ -44,13 +49,8 @@ void main() {
 
     test('When WeatherRepository returns WeatherCondition.sunny.', () async {
       // Arrange
-      final weatherRepository = MockWeatherRepository();
-      final container = ProviderContainer(
-        overrides: [
-          weatherRepositoryProvider.overrideWithValue(weatherRepository),
-        ],
-      );
-      addTearDown(container.dispose);
+      final (weatherRepository, container) = setup();
+
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'sunny',
@@ -78,13 +78,8 @@ void main() {
 
     test('When WeatherRepository returns WeatherCondition.cloudy.', () async {
       // Arrange
-      final weatherRepository = MockWeatherRepository();
-      final container = ProviderContainer(
-        overrides: [
-          weatherRepositoryProvider.overrideWithValue(weatherRepository),
-        ],
-      );
-      addTearDown(container.dispose);
+      final (weatherRepository, container) = setup();
+
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'cloudy',
@@ -112,13 +107,8 @@ void main() {
 
     test('When WeatherRepository returns WeatherCondition.rainy.', () async {
       // Arrange
-      final weatherRepository = MockWeatherRepository();
-      final container = ProviderContainer(
-        overrides: [
-          weatherRepositoryProvider.overrideWithValue(weatherRepository),
-        ],
-      );
-      addTearDown(container.dispose);
+      final (weatherRepository, container) = setup();
+
       final sampleWeatherData = WeatherData.fromJson(
         {
           'weather_condition': 'rainy',
@@ -151,13 +141,8 @@ void main() {
         'when WeatherRepository throws YumemiWeatherError.invalidParameter.',
         () async {
       // Arrange
-      final weatherRepository = MockWeatherRepository();
-      final container = ProviderContainer(
-        overrides: [
-          weatherRepositoryProvider.overrideWithValue(weatherRepository),
-        ],
-      );
-      addTearDown(container.dispose);
+      final (weatherRepository, container) = setup();
+
       when(weatherRepository.fetchWeather(weatherDataRequest))
           .thenThrow(YumemiWeatherError.invalidParameter);
 

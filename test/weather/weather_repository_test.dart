@@ -12,6 +12,18 @@ import 'package:mockito/mockito.dart';
 
 import 'weather_repository_test.mocks.dart';
 
+(MockWeatherDataSource, WeatherRepository) setup() {
+  final weatherDataSource = MockWeatherDataSource();
+  final container = ProviderContainer(
+    overrides: [
+      weatherDataSourceProvider.overrideWithValue(weatherDataSource),
+    ],
+  );
+  addTearDown(container.dispose);
+  final weatherRepository = container.read(weatherRepositoryProvider);
+  return (weatherDataSource, weatherRepository);
+}
+
 @GenerateNiceMocks([MockSpec<WeatherDataSource>()])
 void main() {
   /// weatherDataSourceではjsonで入出力する形となっております。
@@ -28,14 +40,8 @@ void main() {
   group('weatherRepositoryの正常系テスト', () {
     test('When WeatherDataSource returns sunny.', () async {
       // Arrange
-      final weatherDataSource = MockWeatherDataSource();
-      final container = ProviderContainer(
-        overrides: [
-          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherRepository = container.read(weatherRepositoryProvider);
+      final (weatherDataSource, weatherRepository) = setup();
+      
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) async => json.encode(
           {
@@ -64,14 +70,8 @@ void main() {
 
     test('When WeatherDataSource returns cloudy.', () async {
       // Arrange
-      final weatherDataSource = MockWeatherDataSource();
-      final container = ProviderContainer(
-        overrides: [
-          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherRepository = container.read(weatherRepositoryProvider);
+      final (weatherDataSource, weatherRepository) = setup();
+      
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) async => json.encode(
           {
@@ -100,14 +100,8 @@ void main() {
 
     test('When WeatherDataSource returns rainy.', () async {
       // Arrange
-      final weatherDataSource = MockWeatherDataSource();
-      final container = ProviderContainer(
-        overrides: [
-          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherRepository = container.read(weatherRepositoryProvider);
+      final (weatherDataSource, weatherRepository) = setup();
+      
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) async => json.encode(
           {
@@ -141,14 +135,8 @@ void main() {
         'When WeatherDataSource returns snowy. '
         '(including invalid value)', () async {
       // Arrange
-      final weatherDataSource = MockWeatherDataSource();
-      final container = ProviderContainer(
-        overrides: [
-          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherRepository = container.read(weatherRepositoryProvider);
+      final (weatherDataSource, weatherRepository) = setup();
+      
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) async => json.encode(
           {
@@ -173,14 +161,8 @@ void main() {
         'Throws YumemiWeatherRepositoryException '
         'When the data is not appropriate format.', () async {
       // Arrange
-      final weatherDataSource = MockWeatherDataSource();
-      final container = ProviderContainer(
-        overrides: [
-          weatherDataSourceProvider.overrideWithValue(weatherDataSource),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherRepository = container.read(weatherRepositoryProvider);
+      final (weatherDataSource, weatherRepository) = setup();
+      
       when(weatherDataSource.fetchWeather(weatherDataPayload)).thenAnswer(
         (realInvocation) async => json.encode(
           {

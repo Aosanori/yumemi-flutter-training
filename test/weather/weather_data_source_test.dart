@@ -11,6 +11,18 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 import 'weather_data_source_test.mocks.dart';
 
+(MockYumemiWeather, WeatherDataSource) setup() {
+  final yumemiWeatherService = MockYumemiWeather();
+  final container = ProviderContainer(
+    overrides: [
+      yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
+    ],
+  );
+  addTearDown(container.dispose);
+  final weatherDataSource = container.read(weatherDataSourceProvider);
+  return (yumemiWeatherService, weatherDataSource);
+}
+
 @GenerateNiceMocks([MockSpec<YumemiWeather>()])
 void main() {
   final payload = json.encode(
@@ -23,14 +35,8 @@ void main() {
   group('weatherDataSourceの正常系テスト', () {
     test('When YumemiWeatherService returns sunny.', () async {
       // Arrange
-      final yumemiWeatherService = MockYumemiWeather();
-      final container = ProviderContainer(
-        overrides: [
-          yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherDataSource = container.read(weatherDataSourceProvider);
+      final (yumemiWeatherService, weatherDataSource) = setup();
+
       final response = json.encode(
         {
           'weather_condition': 'sunny',
@@ -49,14 +55,8 @@ void main() {
     });
     test('When YumemiWeatherService returns cloudy.', () async {
       // Arrange
-      final yumemiWeatherService = MockYumemiWeather();
-      final container = ProviderContainer(
-        overrides: [
-          yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherDataSource = container.read(weatherDataSourceProvider);
+      final (yumemiWeatherService, weatherDataSource) = setup();
+
       final response = json.encode(
         {
           'weather_condition': 'cloudy',
@@ -65,8 +65,7 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.syncFetchWeather(payload))
-          .thenReturn(response);
+      when(yumemiWeatherService.syncFetchWeather(payload)).thenReturn(response);
 
       // Act
       final weatherString = await weatherDataSource.fetchWeather(payload);
@@ -76,14 +75,8 @@ void main() {
     });
     test('When YumemiWeatherService returns rainy.', () async {
       // Arrange
-      final yumemiWeatherService = MockYumemiWeather();
-      final container = ProviderContainer(
-        overrides: [
-          yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherDataSource = container.read(weatherDataSourceProvider);
+      final (yumemiWeatherService, weatherDataSource) = setup();
+
       final response = json.encode(
         {
           'weather_condition': 'rainy',
@@ -92,8 +85,7 @@ void main() {
           'date': '2024-04-24T12:09:46+09:00',
         },
       );
-      when(yumemiWeatherService.syncFetchWeather(payload))
-          .thenReturn(response);
+      when(yumemiWeatherService.syncFetchWeather(payload)).thenReturn(response);
 
       // Act
       final weatherString = await weatherDataSource.fetchWeather(payload);
@@ -109,14 +101,8 @@ void main() {
         'with message of "Input parameters are wrong." '
         'when YumemiWeatherError.invalidParameter is thrown.', () {
       // Arrange
-      final yumemiWeatherService = MockYumemiWeather();
-      final container = ProviderContainer(
-        overrides: [
-          yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherDataSource = container.read(weatherDataSourceProvider);
+      final (yumemiWeatherService, weatherDataSource) = setup();
+
       when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.invalidParameter);
 
@@ -138,14 +124,8 @@ void main() {
         'with message of "Failed to load data" '
         'when YumemiWeatherError.unknown is thrown.', () {
       // Arrange
-      final yumemiWeatherService = MockYumemiWeather();
-      final container = ProviderContainer(
-        overrides: [
-          yumemiWeatherServiceProvider.overrideWithValue(yumemiWeatherService),
-        ],
-      );
-      addTearDown(container.dispose);
-      final weatherDataSource = container.read(weatherDataSourceProvider);
+      final (yumemiWeatherService, weatherDataSource) = setup();
+
       when(yumemiWeatherService.syncFetchWeather(payload))
           .thenThrow(YumemiWeatherError.unknown);
 
