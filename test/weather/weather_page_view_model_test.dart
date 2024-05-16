@@ -34,9 +34,6 @@ void main() {
       // Arrange
       final (_, container) = providerSetup();
 
-      // Act
-      container.listen(weatherPageViewModelProvider, (_, __) {});
-
       // Assert
       expect(await container.read(weatherPageViewModelProvider.future), null);
     });
