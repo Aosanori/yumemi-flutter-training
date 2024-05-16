@@ -30,21 +30,15 @@ void main() {
   );
 
   group('weatherPageViewModelの正常系テスト', () {
-    test('initialize', () {
+    test('initialize', () async {
       // Arrange
       final (_, container) = setup();
-      
+
       // Act
-      container.listen(
-        weatherPageViewModelProvider,
-        (_, __) {
-          // Assert
-          expect(
-            container.read(weatherPageViewModelProvider),
-            const AsyncData<WeatherData?>(null),
-          );
-        },
-      );
+      container.listen(weatherPageViewModelProvider, (_, __) {});
+
+      // Assert
+      expect(await container.read(weatherPageViewModelProvider.future), null);
     });
 
     test('When WeatherRepository returns WeatherCondition.sunny.', () async {
